@@ -135,7 +135,7 @@
             position: relative;
         }
 
-        /* 漢字テスト UI（スクロール不要設計） */
+        /* 漢字テスト UI */
         .quiz-start-screen {
             text-align: center;
             padding: 30px 10px;
@@ -193,7 +193,7 @@
             transition: width 0.3s ease;
         }
 
-        /* 答え表示エリア（完全に漢字の真下） */
+        /* 答え表示エリア */
         .quiz-details {
             display: none;
             padding-bottom: 10px;
@@ -639,7 +639,7 @@
             <!-- スライド2：漢字メモ一覧 -->
             <div id="memo-panel" class="swipe-slide">
                 
-                <!-- 新しい漢字登録用アコーディオン（折りたたみ縮小版） -->
+                <!-- 新しい漢字登録用アコーディオン -->
                 <div class="register-accordion-header" onclick="toggleRegisterForm()">
                     <span><i class="fa-solid fa-plus-circle" style="color: #d35400; margin-right: 6px;"></i> 新しい漢字を登録する</span>
                     <i id="register-accordion-icon" class="fa-solid fa-chevron-down"></i>
@@ -708,7 +708,7 @@
 </div>
 
 <script>
-    // 各漢字に対して3個の意味、さらにガチ例文を完備したオフライン高速辞書（Web取得失敗時のフォールバック用）
+    // 各漢字に対して3個の意味、さらにガチ例文を完備したオフライン高速辞書（Web取得失敗や通信ブロック時の強力なフォールバック）
     const offlineDict = {
         "稟議": { 
             reading: "りんぎ", 
@@ -762,7 +762,7 @@
         },
         "遵守": { 
             reading: "じゅんしゅ", 
-            meaning: "① 定められた法律、社会的な規則、合意事項を忠実に守ること。\n② 道徳や規律に反することなく、その枠組みを維持すること。\n③ 指示されたプロセスや手順を間違いなく実践し守り抜くこと。", 
+            meaning: "① 定められた法律、社会的な規則、合意事項を忠実に守ること。\n② 道徳や規律に反することなく、その枠組みを維持すること。\n③ 指示されたプロセスや手順を間違いなく実践し守り守ること。", 
             example: "企業の信頼を守るためには、コンプライアンスの遵守が最優先だ。" 
         },
         "貼付": { 
@@ -779,6 +779,36 @@
             reading: "いんぺい", 
             meaning: "① 都合の悪い事実、罪、ミスなどを他人から見えないように覆い隠すこと。\n② 証拠資料の破棄や情報の意図的な遮断を行い、認知を阻害する行為。\n③ 意図を持って特定の事象を社会的に闇に葬り去ること。", 
             example: "その会社はリコール対象製品の事故情報を組織的に隠蔽していた。" 
+        },
+        "一瞥": { 
+            reading: "いちべつ", 
+            meaning: "① ちらりと一目見ること。一瞬だけ視線を投げること。\n② 深く考えずに状況を大まかに把握すること。\n③ ほんのわずかな時間、観察する態度。", 
+            example: "彼は提出された書類に一瞥を与えただけで、すぐにサインした。" 
+        },
+        "憂鬱": { 
+            reading: "ゆううつ", 
+            meaning: "① 気持ちがふさいで、晴れ晴れしない様子。\n② 精神的に落ち込んでいて活動する意欲が湧かない状態。\n③ 暗く沈んだ雰囲気や心のわだかまり。", 
+            example: "雨の日が続くと、どうしても憂鬱な気分になってしまう。" 
+        },
+        "億劫": { 
+            reading: "おっくう", 
+            meaning: "① 面倒で気が進まない様子。\n② 行動を起こすのに非常に大きな精神的負担を感じること。\n③ 面倒くさがり、億劫がること。", 
+            example: "寒くなると、朝起きて布団から出るのが億劫になる。" 
+        },
+        "真摯": { 
+            reading: "しんし", 
+            meaning: "① まじめで熱心に物事に取り組む様子。\n② 誠実で一切の誤魔化しがない態度。\n③ 相手や課題に対して謙虚かつ真剣に向き合うこと。", 
+            example: "お客様からいただいたクレームには、真摯に対応する必要があります。" 
+        },
+        "矜持": { 
+            reading: "きょうじ", 
+            meaning: "① 自分の能力や立場に対する誇りやプライドのこと。\n② 自尊心を持ち、堂々と自分を保ち続けること。\n③ プライドを強く持ち他人に負けじと心に決めること。", 
+            example: "プロの職人としての矜持を持って、すべての製品を仕上げています。" 
+        },
+        "蹂躙": { 
+            reading: "じゅうりん", 
+            meaning: "① 暴力や権力などで、他人の権利や尊厳を無残に踏みにじること。\n② 荒らし回り、社会的なルールや秩序を破壊すること。\n③ 力によって支配し、回復困難な打撃を与えること。", 
+            example: "基本的人権を蹂躙するような行為は、断じて許されるべきではない。" 
         }
     };
 
@@ -815,7 +845,7 @@
         
         setTimeout(() => {
             toast.classList.remove('show');
-        }, 2200);
+        }, 3000); // プレビュー環境の注意が見やすいよう少し長め
     }
 
     function showConfirmModal(title, message, callback) {
@@ -857,45 +887,40 @@
 
     // iPhoneホーム画面風：画面全体でのスワイプ追従イベント
     document.addEventListener('touchstart', e => {
-        // 入力欄、ボタン、アコーディオン等の上でタッチを開始した場合はスワイプを不許可にする
         const target = e.target;
         if (target.closest('input') || target.closest('textarea') || target.closest('button') || target.closest('.btn') || target.closest('.btn-status') || target.closest('.btn-outline-danger') || target.closest('.register-accordion-header')) {
-            isScrolling = true; // 縦スクロールと同様に、スワイプを無効化
+            isScrolling = true; // スワイプ無効
             return;
         }
 
         touchStartX = e.touches[0].clientX;
         touchStartY = e.touches[0].clientY;
-        isScrolling = undefined; // 判定リセット
-        swipeWrapper.style.transition = 'none'; // ドラッグ中はトランジションを切る
+        isScrolling = undefined;
+        swipeWrapper.style.transition = 'none';
     }, {passive: true});
 
     document.addEventListener('touchmove', e => {
-        if (isScrolling === true) return; // スワイプ無効時は何もせずスクロールさせる
+        if (isScrolling === true) return;
 
         const touchX = e.touches[0].clientX;
         const touchY = e.touches[0].clientY;
         const diffX = touchX - touchStartX;
         const diffY = touchY - touchStartY;
 
-        // 最初の微小移動で縦か横かを判定
         if (isScrolling === undefined) {
             if (Math.abs(diffY) > Math.abs(diffX)) {
-                isScrolling = true; // 縦スクロールと見なす
+                isScrolling = true;
                 return;
             } else {
-                isScrolling = false; // 横スワイプと見なす
+                isScrolling = false;
             }
         }
 
-        // 横スワイプ確定時は画面のデフォルトスクロール（バウンス等）をブロック
         if (e.cancelable) e.preventDefault();
 
-        // 追従量の計算
         const containerWidth = window.innerWidth;
         let dragPercent = (diffX / containerWidth) * 100;
 
-        // 端での抵抗（バウンス感）を追加
         if (currentTabIndex === 0 && diffX > 0) {
             dragPercent = dragPercent * 0.35; 
         } else if (currentTabIndex === 1 && diffX < 0) {
@@ -905,7 +930,7 @@
         const baseTranslate = currentTabIndex * -50;
         const finalTranslate = baseTranslate + (dragPercent * 0.5);
         swipeWrapper.style.transform = `translateX(${finalTranslate}%)`;
-    }, {passive: false}); // preventDefault()を有効化するためにpassiveをfalseにする
+    }, {passive: false});
 
     document.addEventListener('touchend', e => {
         if (isScrolling === true) return;
@@ -915,22 +940,19 @@
         const containerWidth = window.innerWidth;
         const dragPercent = (diffX / containerWidth) * 100;
 
-        // 【競合対策】ドラッグ距離が極端に小さい(8px未満)場合は、タップ（クリック）と判定しドラッグ位置をリセット
         if (Math.abs(diffX) < 8) {
             updateSwipePosition();
             return;
         }
 
-        // 15%以上スワイプしたら、切り替え決定
         const swipeThreshold = 15;
 
         if (dragPercent < -swipeThreshold && currentTabIndex === 0) {
-            currentTabIndex = 1; // 一覧へ
+            currentTabIndex = 1;
         } else if (dragPercent > swipeThreshold && currentTabIndex === 1) {
-            currentTabIndex = 0; // クイズへ
+            currentTabIndex = 0;
         }
 
-        // 吸い付くようななめらかスナップ
         updateSwipePosition();
     }, {passive: true});
 
@@ -954,12 +976,11 @@
         }, 1000); // 打ち終えて1秒経過したら自動取得
     }
 
-    // Webから該当漢字を含む日本語文(例文)と意味を自動取得する賢いAPIロジック
+    // エラー（Failed to fetch）を完全にガードするWeb自動取得ロジック
     async function fetchKanjiInfoAutomatically() {
         const kanji = document.getElementById('form-kanji').value.trim();
         if (!kanji) return;
 
-        // 手動ですべて埋まっている場合は自動上書きしない
         const currentReading = document.getElementById('form-reading').value.trim();
         const currentMeaning = document.getElementById('form-meaning').value.trim();
         if (currentReading && currentMeaning) return;
@@ -967,7 +988,7 @@
         const loader = document.getElementById('loading-indicator');
         loader.style.display = 'flex';
 
-        // 1. まず超高速オフライン辞書を確認
+        // 1. まず超高速オフライン辞書（安全・絶対エラーにならない）
         if (offlineDict[kanji]) {
             fillForm(offlineDict[kanji].reading, offlineDict[kanji].meaning, offlineDict[kanji].example);
             loader.style.display = 'none';
@@ -975,17 +996,17 @@
             return;
         }
 
+        // Webフェッチでエラー（Failed to fetchなど）が発生しても完全にエラーキャッチする
         try {
             // 2. Wikipedia 日本語 REST API から検索
             const wikiUrl = `https://ja.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(kanji)}`;
-            const wikiRes = await fetch(wikiUrl);
+            const wikiRes = await fetch(wikiUrl).catch(() => null); // ネットワークエラーをここで安全にキャッチ
             
-            if (wikiRes.ok) {
+            if (wikiRes && wikiRes.ok) {
                 const wikiData = await wikiRes.json();
                 const extract = wikiData.extract || "";
 
                 if (extract) {
-                    // 読み方の抽出（カッコ内のひらがな）
                     const readingMatch = extract.match(/(?:（|\()([ぁ-んァ-ヶー]+)(?:）|\))/);
                     let reading = readingMatch ? readingMatch[1] : '';
 
@@ -995,7 +1016,6 @@
                         meaningRaw = definitionMatch[1];
                     }
                     
-                    // 3個以上の詳細な意味を整形
                     const sentences = meaningRaw.split('。').filter(s => s.trim().length > 0);
                     let meaningStr = "";
                     
@@ -1007,11 +1027,9 @@
                         meaningStr = `① ${sentences[0]}。\n② 辞書検索に基づく主な表現。\n③ ビジネスやニュースなどで用いられる。`;
                     }
 
-                    // 【例文自動抽出】解説文の中からその「漢字」が使われている自然な一文を「例文」として検索してひっぱる！
                     let foundExample = "";
                     for (let sentence of sentences) {
                         sentence = sentence.trim();
-                        // 「とは」等の定義を除き、その漢字を伴う5文字〜55文字前後の自然な一文を探す
                         if (sentence.includes(kanji) && !sentence.includes("とは") && sentence.length > 5 && sentence.length < 55) {
                             foundExample = sentence + "。";
                             break;
@@ -1044,17 +1062,21 @@
                 }
             }
 
-            // 3. Jisho API (バックアップ)
+            // 3. Jisho API (プロキシフォールバック)
             const jishoBackup = await fetchFromJishoAll(kanji);
             if (jishoBackup) {
                 fillForm(jishoBackup.reading, jishoBackup.meaning, `日常生活や文脈において、「${kanji}」は幅広く使用されます。`);
                 showToast(`「${kanji}」のデータを取得！`);
             } else {
-                showToast("Web辞書にありませんでした。手動入力をお願いします！");
+                // すべて失敗した場合（オフライン・制限環境）の安全なプレースホルダー
+                fillForm("", "① 意味を手動で入力してください。\n② （オフラインモード稼働中）\n③ 自由に変更可能です。", `「${kanji}」について調べましょう。`);
+                showToast("【オフライン通知】ネットワーク制限のため、手動で入力をお願いします！");
             }
 
         } catch (error) {
-            console.error("API Error: ", error);
+            // 例外が投げられても絶対にクラッシュさせない
+            fillForm("", "① 意味を手動で入力してください。\n② （オフラインモード）\n③ 通信制限のため安全に処理されました。", `「${kanji}」についての解説を記述します。`);
+            showToast("【お知らせ】通信制限のため、ローカル入力モードになります！");
         } finally {
             loader.style.display = 'none';
         }
@@ -1062,38 +1084,48 @@
 
     async function fetchReadingFromJisho(word) {
         try {
-            const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://jisho.org/api/v1/search/words?keyword=' + word)}`);
-            const json = await res.json();
-            const jishoData = JSON.parse(json.contents);
-            if (jishoData && jishoData.data && jishoData.data.length > 0) {
-                return jishoData.data[0].japanese[0].reading || '';
+            const url = `https://api.allorigins.win/get?url=${encodeURIComponent('https://jisho.org/api/v1/search/words?keyword=' + word)}`;
+            const res = await fetch(url).catch(() => null);
+            if (res && res.ok) {
+                const json = await res.json();
+                const jishoData = JSON.parse(json.contents);
+                if (jishoData && jishoData.data && jishoData.data.length > 0) {
+                    return jishoData.data[0].japanese[0].reading || '';
+                }
             }
-        } catch (e) { console.error(e); }
+        } catch (e) {
+            // サイレントキャッチでコンソールをクリアに保つ
+        }
         return '';
     }
 
     async function fetchFromJishoAll(word) {
         try {
-            const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://jisho.org/api/v1/search/words?keyword=' + word)}`);
-            const json = await res.json();
-            const jishoData = JSON.parse(json.contents);
-            if (jishoData && jishoData.data && jishoData.data.length > 0) {
-                const entry = jishoData.data[0];
-                const reading = entry.japanese[0].reading || '';
-                const senses = entry.senses.slice(0, 3);
-                
-                let meaningText = "";
-                senses.forEach((sense, index) => {
-                    meaningText += `${String.fromCharCode(9312 + index)} (${sense.parts_of_speech.join(', ')}) ${sense.english_definitions.join(', ')}\n`;
-                });
-                
-                if (senses.length < 3) {
-                    meaningText += `② 英語：${senses[0] ? senses[0].english_definitions.join(', ') : 'No data'}\n③ 用語集に基づく一般的な語。`;
-                }
+            const url = `https://api.allorigins.win/get?url=${encodeURIComponent('https://jisho.org/api/v1/search/words?keyword=' + word)}`;
+            const res = await fetch(url).catch(() => null);
+            if (res && res.ok) {
+                const json = await res.json();
+                const jishoData = JSON.parse(json.contents);
+                if (jishoData && jishoData.data && jishoData.data.length > 0) {
+                    const entry = jishoData.data[0];
+                    const reading = entry.japanese[0].reading || '';
+                    const senses = entry.senses.slice(0, 3);
+                    
+                    let meaningText = "";
+                    senses.forEach((sense, index) => {
+                        meaningText += `${String.fromCharCode(9312 + index)} ${sense.english_definitions.join(', ')}\n`;
+                    });
+                    
+                    if (senses.length < 3) {
+                        meaningText += `② 英語：${senses[0] ? senses[0].english_definitions.join(', ') : 'No data'}\n③ 一般的な語句。`;
+                    }
 
-                return { reading, meaning: meaningText };
+                    return { reading, meaning: meaningText };
+                }
             }
-        } catch (e) { console.error(e); }
+        } catch (e) {
+            // サイレントキャッチ
+        }
         return null;
     }
 
@@ -1119,7 +1151,7 @@
         saveToStorage();
         document.getElementById('kanji-form').reset();
         
-        toggleRegisterForm(); // 登録後は自動でフォームを閉じる
+        toggleRegisterForm(); 
         renderList();
         
         showToast(`「${newKanji.kanji}」を登録したで！`);
@@ -1148,7 +1180,6 @@
             return;
         }
 
-        // 最新のものを上にする
         [...kanjiData].reverse().forEach(item => {
             const itemElement = document.createElement('div');
             itemElement.className = 'kanji-list-item';
@@ -1189,11 +1220,9 @@
                 </div>
             `;
 
-            // 【超重要】クリックバグの完全解消：closest()を用いたクリック処理
             itemElement.addEventListener('click', (e) => {
                 const target = e.target;
                 
-                // フッターのボタン類をクリックした時はアコーディオンのトグルを完全無効化
                 const statusBtn = target.closest('.btn-status');
                 const deleteBtn = target.closest('.btn-outline-danger');
                 
@@ -1210,7 +1239,6 @@
                     return;
                 }
 
-                // ヘッダーや余白をクリックした時だけアコーディオンを開閉
                 const isOpen = itemElement.classList.contains('open');
                 document.querySelectorAll('.kanji-list-item').forEach(item => {
                     item.classList.remove('open');
@@ -1323,10 +1351,10 @@
                 <div class="quiz-kanji">${currentCard.kanji}</div>
             </div>
             
-            <!-- 答えを見るボタン（親指の届く位置。漢字の真下に即時出現） -->
+            <!-- 答えを見るボタン（漢字の真下に即時出現） -->
             <button id="show-answer-btn" class="btn btn-primary" onclick="showQuizAnswer()"><i class="fa-solid fa-eye"></i> 答えを見る</button>
             
-            <!-- スクロールを一切排除して漢字の真下に完全集約される答えグループ -->
+            <!-- 完全に漢字の真下に集約される答えグループ -->
             <div id="quiz-details" class="quiz-details">
                 <div class="detail-group">
                     <div class="label"><i class="fa-solid fa-microphone"></i> 読み</div>
@@ -1342,7 +1370,7 @@
                 </div>
             </div>
 
-            <!-- 覚えた・まだ アクションボタン。答えを見るのと同じ領域に出現するため親指移動ゼロ設計 -->
+            <!-- アクションボタン -->
             <div id="quiz-actions" class="quiz-actions">
                 <button class="btn btn-success" onclick="submitQuizResult(true)"><i class="fa-solid fa-check"></i> 覚えた！</button>
                 <button class="btn btn-secondary" onclick="submitQuizResult(false)"><i class="fa-solid fa-rotate-right"></i> まだ…</button>
@@ -1368,7 +1396,6 @@
             currentQuizIndex++;
         }
 
-        // インデックスループ
         if (currentQuizIndex >= activeQuizCards.length) {
             currentQuizIndex = 0;
         }
@@ -1380,7 +1407,7 @@
         renderQuiz();
     }
 
-    // 初回アプリの立ち上げ
+    // 初回起動
     initQuiz();
 </script>
 
