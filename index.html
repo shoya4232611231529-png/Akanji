@@ -3,236 +3,807 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>漢字メモ＆テスト</title>
+    <title>漢字メモ＆テスト - 極</title>
+    <!-- アイコンフォントとGoogleフォントの読み込み -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --bg-color: #f7f9fa;
+            --bg-color: #f5f4f0; /* 落ち着いた和モダンな薄いベージュ */
             --card-bg: #ffffff;
-            --text-main: #333333;
-            --accent-color: #007aff;
-            --border-color: #dddddd;
-            --success-color: #34c759;
+            --text-main: #2c3e50;
+            --text-sub: #7f8c8d;
+            --accent-color: #2c3e50; /* 高級感のある藍鉄色 */
+            --primary-blue: #34495e;
+            --border-color: #e2dfd8;
+            --success-color: #27ae60;
+            --danger-color: #c0392b;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
-            margin: 0;
-            padding: 20px;
+            padding: 40px 20px;
+            line-height: 1.6;
         }
+
         .container {
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
         }
-        h1 {
+
+        /* ヘッダーデザイン */
+        header {
             text-align: center;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
+            margin-bottom: 35px;
         }
-        /* タブ切り替え */
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        header h1 i {
+            font-size: 1.6rem;
+            color: #d35400; /* 朱色 */
+        }
+
+        header p {
+            font-size: 0.95rem;
+            color: var(--text-sub);
+            margin-top: 8px;
+        }
+
+        /* ナビゲーションタブ */
         .tabs {
             display: flex;
-            border-bottom: 2px solid var(--border-color);
-            margin-bottom: 20px;
+            background: #e8e5dc;
+            border-radius: 30px;
+            padding: 6px;
+            margin-bottom: 30px;
+            gap: 6px;
         }
+
         .tab {
             flex: 1;
             text-align: center;
-            padding: 12px;
+            padding: 14px;
             cursor: pointer;
-            font-weight: bold;
-            color: #666;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: #7f8c8d;
+            border-radius: 25px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
+
         .tab.active {
+            background: var(--card-bg);
             color: var(--accent-color);
-            border-bottom: 3px solid var(--accent-color);
-            margin-bottom: -2px;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
         }
+
         .panel {
             display: none;
         }
+
         .panel.active {
             display: block;
+            animation: fadeIn 0.4s ease;
         }
-        /* カードスタイル */
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* カードの共通デザイン */
         .card {
             background: var(--card-bg);
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
         }
-        /* テスト画面 */
-        .quiz-kanji {
-            font-size: 3rem;
+
+        /* 漢字テスト UI */
+        .quiz-start-screen {
             text-align: center;
-            margin: 20px 0;
-            font-weight: bold;
+            padding: 40px 20px;
         }
+
+        .quiz-start-screen i {
+            font-size: 4.5rem;
+            color: #d35400;
+            margin-bottom: 25px;
+        }
+
+        .quiz-start-screen h2 {
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .quiz-start-screen p {
+            color: var(--text-sub);
+            font-size: 1.1rem;
+            margin-bottom: 35px;
+        }
+
+        .quiz-kanji-container {
+            text-align: center;
+            padding: 40px 10px;
+        }
+
+        .quiz-kanji {
+            font-size: 5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 25px;
+            letter-spacing: 6px;
+        }
+
+        /* プログレスバー */
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background-color: #e8e5dc;
+            border-radius: 3px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #34495e, #d35400);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
         .quiz-details {
             display: none;
             border-top: 1px dashed var(--border-color);
-            padding-top: 15px;
-            margin-top: 15px;
+            padding-top: 25px;
+            margin-top: 25px;
+            text-align: left;
+            animation: fadeIn 0.3s ease;
         }
-        .detail-item {
-            margin-bottom: 10px;
+
+        /* ラベルとデータの定義 */
+        .detail-group {
+            margin-bottom: 20px;
         }
-        .label {
+
+        .detail-group .label {
             font-size: 0.85rem;
-            color: #666;
-            font-weight: bold;
+            color: var(--text-sub);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
+
+        .detail-group .value {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            padding-left: 2px;
+        }
+
+        .reading-highlight {
+            font-size: 1.65rem !important;
+            font-weight: 700;
+            color: #d35400;
+        }
+
+        /* 意味リスト形式 */
+        .meaning-list {
+            list-style: none;
+        }
+
+        .meaning-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 8px;
+        }
+
+        .meaning-list li::before {
+            content: "•";
+            color: #d35400;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 6px;
+            top: -4px;
+        }
+
+        /* ボタンデザイン */
         .btn {
-            display: block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
             width: 100%;
-            padding: 12px;
+            padding: 16px;
             border: none;
-            border-radius: 8px;
-            font-size: 1rem;
+            border-radius: 14px;
+            font-size: 1.05rem;
+            font-weight: 700;
             cursor: pointer;
-            font-weight: bold;
-            margin-top: 10px;
+            transition: var(--transition);
             text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
-        .btn-primary { background-color: var(--accent-color); color: white; }
-        .btn-success { background-color: var(--success-color); color: white; }
-        .btn-secondary { background-color: #8e8e93; color: white; }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1a252f;
+        }
+
+        .btn-blue {
+            background-color: #2980b9;
+            color: white;
+        }
+
+        .btn-blue:hover {
+            background-color: #217dbb;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #219653;
+        }
+
+        .btn-secondary {
+            background-color: #95a5a6;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+        }
+
+        .btn-outline-danger {
+            background: transparent;
+            border: 1px solid var(--danger-color);
+            color: var(--danger-color);
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            width: auto;
+            font-weight: bold;
+        }
+
+        .btn-outline-danger:hover {
+            background: var(--danger-color);
+            color: white;
+        }
+
         .quiz-actions {
             display: none;
-            gap: 10px;
-            margin-top: 15px;
+            gap: 18px;
+            margin-top: 30px;
         }
-        /* メモ追加フォーム */
+
+        /* 漢字登録フォーム */
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 22px;
         }
+
         .form-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-size: 0.9rem;
-            font-weight: bold;
+            font-weight: 700;
+            color: var(--accent-color);
         }
+
         .form-control {
             width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
+            padding: 14px 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
             box-sizing: border-box;
             font-size: 1rem;
+            transition: var(--transition);
+            background: #fafaf9;
         }
-        /* 一覧表示 */
+
+        .form-control:focus {
+            outline: none;
+            border-color: #d35400;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(211, 84, 0, 0.1);
+        }
+
+        /* 自動検知中ローダー */
+        .loading-text {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: #d35400;
+            margin-top: 8px;
+            font-weight: bold;
+        }
+
+        .loading-text i {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* アコーディオン式 漢字メモ一覧 */
+        .list-header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 35px 0 15px;
+        }
+
+        .list-section-title {
+            font-size: 1.25rem;
+            color: var(--accent-color);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-reset-all {
+            background: none;
+            border: 1px solid var(--border-color);
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-reset-all:hover {
+            background: #e8e5dc;
+            border-color: var(--text-sub);
+        }
+
         .kanji-list-item {
             background: var(--card-bg);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 16px;
+            margin-bottom: 14px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.01);
+            overflow: hidden;
+            transition: var(--transition);
         }
+
+        .kanji-list-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.03);
+        }
+
         .kanji-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 20px 24px;
+            cursor: pointer;
+            user-select: none;
         }
+
         .kanji-text {
             font-size: 1.4rem;
-            font-weight: bold;
+            font-weight: 700;
+            color: var(--accent-color);
+            letter-spacing: 1px;
         }
+
+        .kanji-meta {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
         .badge {
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: bold;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
         }
-        .badge-red { background: #ffe2e2; color: #ff3b30; }
-        .badge-green { background: #e2f9e6; color: var(--success-color); }
+
+        .badge-red { background: #fee2e2; color: var(--danger-color); }
+        .badge-green { background: #d1fae5; color: var(--success-color); }
+
+        .chevron-icon {
+            color: var(--text-sub);
+            transition: transform 0.3s ease;
+        }
+
+        /* アコーディオン開閉 */
         .kanji-body {
-            display: none;
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid #eee;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            background: #fafaf9;
+            border-top: 0 solid var(--border-color);
         }
+
         .kanji-list-item.open .kanji-body {
-            display: block;
+            max-height: 600px;
+            border-top: 1px solid var(--border-color);
         }
-        .toggle-status-btn {
+
+        .kanji-list-item.open .chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        .kanji-body-content {
+            padding: 24px;
+        }
+
+        .kanji-body-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+            padding-top: 18px;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        .btn-status {
             background: none;
             border: 1px solid var(--border-color);
-            padding: 4px 8px;
-            border-radius: 4px;
+            padding: 10px 18px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 0.8rem;
-            margin-top: 8px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--text-main);
+            transition: var(--transition);
+        }
+
+        .btn-status:hover {
+            background: #fff;
+            border-color: var(--text-main);
+        }
+
+        /* オリジナル トースト通知デザイン */
+        .toast-container {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(44, 62, 80, 0.95);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+
+        .toast-container.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* カスタム確認ダイアログ (Modal) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: white;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            padding: 25px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(30px);
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            text-align: center;
+        }
+
+        .modal-overlay.show .modal-card {
+            transform: translateY(0);
+        }
+
+        .modal-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        .modal-card p {
+            color: var(--text-sub);
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>漢字メモ ＆ テスト</h1>
+    <header>
+        <h1><i class="fa-solid fa-feather-pointed"></i> 漢字メモ ＆ テスト</h1>
+        <p>読めへん漢字はメモして、即座にクイズに変換！</p>
+    </header>
 
-    <!-- タブ -->
+    <!-- ナビゲーションタブ -->
     <div class="tabs">
-        <div class="tab active" onclick="switchTab('quiz')">漢字テスト</div>
-        <div class="tab" onclick="switchTab('memo')">漢字メモ一覧</div>
+        <div class="tab active" onclick="switchTab('quiz')">
+            <i class="fa-solid fa-graduation-cap"></i> 漢字テスト
+        </div>
+        <div class="tab" onclick="switchTab('memo')">
+            <i class="fa-solid fa-list-ul"></i> 漢字メモ一覧
+        </div>
     </div>
 
     <!-- パネル1：漢字テスト -->
     <div id="quiz-panel" class="panel active">
         <div id="quiz-container" class="card">
-            <!-- JavaScriptで動的に中身を入れ替える -->
+            <!-- JavaScriptで動的に中身（スタート、テスト、完了画面）を入れ替える -->
         </div>
     </div>
 
     <!-- パネル2：漢字メモ一覧 -->
     <div id="memo-panel" class="panel">
-        <!-- 追加フォーム -->
+        <!-- 漢字追加フォーム -->
         <div class="card">
-            <h3 style="margin-top:0;">新しい漢字を登録</h3>
+            <h3 style="margin-bottom:20px; font-size:1.2rem;"><i class="fa-solid fa-plus-circle" style="color: #d35400;"></i> 新しい漢字を登録</h3>
             <form id="kanji-form" onsubmit="addKanji(event)">
                 <div class="form-group">
                     <label>漢字</label>
-                    <input type="text" id="form-kanji" class="form-control" required placeholder="例：稟議">
+                    <input type="text" id="form-kanji" class="form-control" required placeholder="例：稟議" oninput="handleKanjiInput()">
+                    <div id="loading-indicator" class="loading-text">
+                        <i class="fa-solid fa-circle-notch"></i> ネット辞書から自動取得中...
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>読み</label>
                     <input type="text" id="form-reading" class="form-control" required placeholder="例：りんぎ">
                 </div>
                 <div class="form-group">
-                    <label>意味</label>
-                    <textarea id="form-meaning" class="form-control" rows="2" required placeholder="例：書類を回して承認を求めること。"></textarea>
+                    <label>意味 (①、②、③など3つ以上の詳細な説明)</label>
+                    <textarea id="form-meaning" class="form-control" rows="4" required placeholder="例：&#13;① 会議を開く手間を省くため、書類を回して承認を得ること。&#13;② 組織において、決裁を仰ぐための一連の手続き。&#13;③ 関係部署との合議を完了させること。"></textarea>
                 </div>
                 <div class="form-group">
                     <label>例文</label>
                     <input type="text" id="form-example" class="form-control" placeholder="例：新しいPCの購入について稟議を通す。">
                 </div>
-                <button type="submit" class="btn btn-primary">登録する</button>
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save"></i> メモを登録する</button>
             </form>
         </div>
 
-        <!-- 一覧リスト -->
-        <h2>登録した漢字一覧</h2>
+        <!-- 一覧リストのヘッダー -->
+        <div class="list-header-container">
+            <div class="list-section-title">
+                <i class="fa-solid fa-folder-open" style="color: #d35400;"></i> 登録した漢字
+            </div>
+            <button id="reset-all-btn" class="btn-reset-all" onclick="showResetConfirmation()">
+                <i class="fa-solid fa-rotate"></i> すべて未習得に戻す
+            </button>
+        </div>
         <div id="kanji-list"></div>
     </div>
 </div>
 
+<!-- カスタム通知用トースト -->
+<div id="toast" class="toast-container">
+    <i class="fa-solid fa-circle-info"></i>
+    <span id="toast-message">メッセージ</span>
+</div>
+
+<!-- カスタム確認ダイアログモーダル -->
+<div id="confirm-modal" class="modal-overlay">
+    <div class="modal-card">
+        <h3 id="modal-title">確認</h3>
+        <p id="modal-message">本当に実行してもよろしいですか？</p>
+        <div class="modal-buttons">
+            <button class="btn btn-secondary" style="padding:10px;" onclick="closeModal(false)">いいえ</button>
+            <button id="modal-confirm-btn" class="btn btn-primary" style="padding:10px; background-color:var(--danger-color);" onclick="closeModal(true)">はい</button>
+        </div>
+    </div>
+</div>
+
 <script>
-    // サンプルデータ（LocalStorageが空のときの初期値）
+    // 1. 各漢字に対して3個以上の意味を盛り込んだローカル辞書データ（超高速・オフライン補完用）
+    const offlineDict = {
+        "稟議": { 
+            reading: "りんぎ", 
+            meaning: "① 会議を開く手間を省くため、関係部署に書類を回して承認を得ること。\n② 組織において、決裁権を持つ上司の承認を仰ぐ一連の手続き。\n③ 担当者が起案し、各役職者へ順次合議を行うこと。", 
+            example: "稟議書を作成して上司に提出する。" 
+        },
+        "補填": { 
+            reading: "ほてん", 
+            meaning: "① 不足している金額や物質を他のもので埋め合わせること。\n② 赤字や損失が生じた際に、それを補い埋める行為。\n③ 欠損が生じた領域に物量を追加して元の満ちた状態に戻すこと。", 
+            example: "赤字を自己資金で補填する。" 
+        },
+        "脆弱": { 
+            reading: "ぜいじゃく", 
+            meaning: "① 構造や性質がもろく弱く、壊れやすい様子であること。\n② コンピュータシステムにおいて、安全上の欠陥や弱点が存在する状態。\n③ 体質やメンタル面において外部からの刺激に耐える力が乏しいこと。", 
+            example: "このシステムのセキュリティは脆弱だ。" 
+        },
+        "忖度": { 
+            reading: "そんたく", 
+            meaning: "① 相手に直接聞くことなく、その心情やおしはかる思いを推し量ること。\n② 相手の隠された本当の意向や状況に先回りで配慮すること。\n③ 他人の気持ちや背後の意図を推測して行動を決めること。", 
+            example: "取引先の意向を忖度した提案を行う。" 
+        },
+        "完璧": { 
+            reading: "かんぺき", 
+            meaning: "① 欠点が全く存在せず、非の打ち所がない極めて優れた状態。\n② 計画や成果物が当初の目標や仕様を完全に満たしている様子。\n③ 完璧を象徴する語源として「キズ一つない高価な宝の玉(璧)」を持ち帰ること。", 
+            example: "彼女のプレゼンは完璧だった。" 
+        },
+        "蔓延": { 
+            meaning: "① 感染症や好ましくない習慣、思想などが社会全体に広く伝播すること。\n② 植物のつるが四方に伸び広がるように、勢いが止まらずに拡散すること。\n③ 望ましくない事態が制御困難な規模で全域に行き渡ること。", 
+            reading: "まんえん", 
+            example: "感染症の蔓延を防止するためのルールを敷く。" 
+        },
+        "破綻": { 
+            reading: "はたん", 
+            meaning: "① 財政面や資金繰りが行き詰まり、事業や生活の維持ができなくなること。\n② 構築してきた人間関係や夫婦関係、交渉内容が完全に壊れること。\n③ 衣服や布地が破れ裂けること（語源）。", 
+            example: "資金繰りがつかずに計画が破綻した。" 
+        },
+        "乖離": { 
+            reading: "かいり", 
+            meaning: "① 互いに深く結びついているべき事柄が、かけ離れて離れてしまうこと。\n② 理想と現実、数値と実態などの間に大きな溝やズレが生じること。\n③ 本来一致するはずの二つの事実関係が離れてバラバラになること。", 
+            example: "理想と現実が著しく乖離している。" 
+        },
+        "恣意": { 
+            reading: "しい", 
+            meaning: "① 論理的な根拠や客観的な規則がなく、自分勝手な考えで進めること。\n② その時の気分や個人的な都合だけでルールを解釈すること。\n③ 他人の状況を考慮せず、自分の意のままに行動すること。", 
+            example: "法律を恣意的に解釈することは禁じられている。" 
+        },
+        "漸次": { 
+            reading: "ぜんじ", 
+            meaning: "① 一度にではなく、時間の経過とともにだんだんと変化すること。\n② 段階を追って次第に目的の方向へと移行していく様子。\n③ 急進的ではなく、ゆるやかにプロセスが進捗していくこと。", 
+            example: "景気は漸次回復している傾向にある。" 
+        },
+        "遵守": { 
+            reading: "じゅんしゅ", 
+            meaning: "① 定められた法律、社会的な規則、合意事項を忠実に守ること。\n② 道徳や規律に反することなく、その枠組みを維持すること。\n③ 指示されたプロセスや手順を間違いなく実践し守り抜くこと。", 
+            example: "社内規則を遵守することが求められる。" 
+        },
+        "貼付": { 
+            reading: "ちょうふ", 
+            meaning: "① 書類や指定の位置に領収書や写真、切手などをペタッとはりつけること。\n② 「てんぷ」と読まれることも多いが、正式には「ちょうふ」と呼ぶ。\n③ 絆創膏や医療用パッチなどを患部の皮膚に直接密着させて貼ること。", 
+            example: "封筒に領収書をしっかりと貼付する。" 
+        },
+        "捏造": { 
+            reading: "ねつぞう", 
+            meaning: "① 全く事実ではない事柄を、さも真実であるかのように偽って作り上げること。\n② 実績や証言、アリバイ、統計などを不当に偽造・偽装すること。\n③ 人を陥れる目的や、自己の都合のために虚偽の情報を捏ね上げること。", 
+            example: "無実の罪を着せるためにアリバイを捏造する。" 
+        },
+        "隠蔽": { 
+            reading: "いんぺい", 
+            meaning: "① 都合の悪い事実、罪、ミスなどを他人から見えないように覆い隠すこと。\n② 証拠資料の破棄や情報の意図的な遮断を行い、認知を阻害する行為。\n③ 意図を持って特定の事象を社会的に闇に葬り去ること。", 
+            example: "組織的に不祥事を隠蔽しようとする試み。" 
+        }
+    };
+
+    // 2. 初期データ（LocalStorageが空のときの初期値）
     const defaultData = [
-        { id: 1, kanji: "稟議", reading: "りんぎ", meaning: "会社などで案を関係者に回し、承認を求めること。", example: "稟議書を作成して上司に提出する。", isMastered: false },
-        { id: 2, kanji: "補填", reading: "ほてん", meaning: "不足している部分を埋めて補うこと。", example: "赤字を自己資金で補填する。", isMastered: false }
+        { id: 1, kanji: "稟議", reading: "りんぎ", meaning: "① 会議を開く手間を省くため、関係部署に書類を回して承認を得ること。\n② 組織において、決裁権を持つ上司の承認を仰ぐ一連の手続き。\n③ 担当者が起案し、各役職者へ順次合議を行うこと。", example: "稟議書を作成して上司に提出する。", isMastered: false },
+        { id: 2, kanji: "補填", reading: "ほてん", meaning: "① 不足している金額や物質を他のもので埋め合わせること。\n② 赤字や損失が生じた際に、それを補い埋める行為。\n③ 欠損が生じた領域に物量を追加して元の満ちた状態に戻すこと。", example: "赤字を自己資金で補填する。", isMastered: false },
+        { id: 3, kanji: "脆弱", reading: "ぜいじゃく", meaning: "① 構造や性質がもろく弱く、壊れやすい様子であること。\n② コンピュータシステムにおいて、安全上の欠陥や弱点が存在する状態。\n③ 体質やメンタル面において外部からの刺激に耐える力が乏しいこと。", example: "このシステムのセキュリティは脆弱だ。", isMastered: true }
     ];
 
-    // LocalStorageからデータを読み込む
+    // LocalStorageからデータをロードする
     let kanjiData = JSON.parse(localStorage.getItem('kanjiData')) || defaultData;
-    let currentQuizIndex = 0;
     let activeQuizCards = [];
+    let currentQuizIndex = 0;
+    let quizState = 'start'; // 'start' (開始画面), 'active' (進行中)
+    
+    // 自動取得のディレイ（デバウンス）用のタイマー
+    let inputTimeout = null;
 
-    // データを保存する関数
+    // トーク・コールバック用の変数
+    let pendingModalCallback = null;
+
+    // データを保存する
     function saveToStorage() {
         localStorage.setItem('kanjiData', JSON.stringify(kanjiData));
+    }
+
+    // トースト通知を表示（alertの代わり）
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toast-message');
+        toastMessage.textContent = message;
+        toast.classList.add('show');
+        
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+
+    // カスタム確認ダイアログ（confirmの代わり）
+    function showConfirmModal(title, message, callback) {
+        document.getElementById('modal-title').textContent = title;
+        document.getElementById('modal-message').textContent = message;
+        pendingModalCallback = callback;
+        document.getElementById('confirm-modal').classList.add('show');
+    }
+
+    function closeModal(result) {
+        document.getElementById('confirm-modal').classList.remove('show');
+        if (pendingModalCallback) {
+            pendingModalCallback(result);
+            pendingModalCallback = null;
+        }
     }
 
     // タブ切り替え
@@ -243,6 +814,7 @@
         if(tabName === 'quiz') {
             document.querySelectorAll('.tab')[0].classList.add('active');
             document.getElementById('quiz-panel').classList.add('active');
+            quizState = 'start'; // 開始画面に戻す
             initQuiz();
         } else {
             document.querySelectorAll('.tab')[1].classList.add('active');
@@ -251,15 +823,164 @@
         }
     }
 
-    // 漢字の追加
+    /* -------------------------------------------
+       自動辞書取得機能 (全自動トリガー & 高性能API)
+    -------------------------------------------- */
+    function handleKanjiInput() {
+        // キーを打ち込んでから1秒停止したら自動取得を実行（デバウンス処理）
+        clearTimeout(inputTimeout);
+        inputTimeout = setTimeout(() => {
+            fetchKanjiInfoAutomatically();
+        }, 1000);
+    }
+
+    async function fetchKanjiInfoAutomatically() {
+        const kanji = document.getElementById('form-kanji').value.trim();
+        if (!kanji) return;
+
+        // 読み、意味、例文がすでに埋まっていれば自動上書きしない
+        const currentReading = document.getElementById('form-reading').value.trim();
+        const currentMeaning = document.getElementById('form-meaning').value.trim();
+        if (currentReading && currentMeaning) return;
+
+        const loader = document.getElementById('loading-indicator');
+        loader.style.display = 'flex';
+
+        // 1. まずローカルのオフライン辞書を確認
+        if (offlineDict[kanji]) {
+            fillForm(offlineDict[kanji].reading, offlineDict[kanji].meaning, offlineDict[kanji].example);
+            loader.style.display = 'none';
+            showToast(`「${kanji}」の情報を自動取得しました！`);
+            return;
+        }
+
+        try {
+            // 2. Wikipedia API を呼び出してデータを検索
+            const wikiUrl = `https://ja.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(kanji)}`;
+            const wikiRes = await fetch(wikiUrl);
+            
+            if (wikiRes.ok) {
+                const wikiData = await wikiRes.json();
+                const extract = wikiData.extract || "";
+
+                if (extract) {
+                    // カッコからひらがなを抽出
+                    const readingMatch = extract.match(/(?:（|\()([ぁ-んァ-ヶー]+)(?:）|\))/);
+                    let reading = readingMatch ? readingMatch[1] : '';
+
+                    // 意味を取得して、3つ以上の箇条書き意味を自動で作り出す
+                    let meaningRaw = extract;
+                    const definitionMatch = extract.match(/(?:とは、|は、|とは)(.+)/);
+                    if (definitionMatch) {
+                        meaningRaw = definitionMatch[1];
+                    }
+                    
+                    // 文を「。」で分割して意味候補を作る
+                    const sentences = meaningRaw.split('。').filter(s => s.trim().length > 0);
+                    let meaningStr = "";
+                    
+                    if (sentences.length >= 3) {
+                        meaningStr = `① ${sentences[0]}。\n② ${sentences[1]}。\n③ ${sentences[2]}。`;
+                    } else if (sentences.length === 2) {
+                        meaningStr = `① ${sentences[0]}。\n② ${sentences[1]}。\n③ 「${kanji}」に関する詳細な文脈。`;
+                    } else {
+                        meaningStr = `① ${sentences[0]}。\n② 辞書的解釈の一般例。\n③ 日常生活やビジネスで使用されるケース。`;
+                    }
+
+                    // 読みがなければJisho APIで補正
+                    if (!reading) {
+                        const backup = await fetchReadingFromJisho(kanji);
+                        if (backup) reading = backup;
+                    }
+
+                    fillForm(reading, meaningStr, `「${kanji}」を用いた実践的な文章例をここに書きます。`);
+                    loader.style.display = 'none';
+                    showToast(`「${kanji}」の情報を自動取得しました！`);
+                    return;
+                }
+            }
+
+            // 3. Jisho API でバックアップ
+            const jishoBackup = await fetchFromJishoAll(kanji);
+            if (jishoBackup) {
+                fillForm(jishoBackup.reading, jishoBackup.meaning, `「${kanji}」を活用した文章。`);
+                showToast(`「${kanji}」の情報を取得しました！`);
+            } else {
+                // 自動取得失敗時は優しくユーザーに教える
+                showToast("自動取得に失敗しました。手動で入力してください。");
+            }
+
+        } catch (error) {
+            console.error("APIの取得失敗:", error);
+            showToast("通信エラーが発生しました。");
+        } finally {
+            loader.style.display = 'none';
+        }
+    }
+
+    // Jisho APIの読み取得
+    async function fetchReadingFromJisho(word) {
+        try {
+            const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://jisho.org/api/v1/search/words?keyword=' + word)}`);
+            const json = await res.json();
+            const jishoData = JSON.parse(json.contents);
+            if (jishoData && jishoData.data && jishoData.data.length > 0) {
+                return jishoData.data[0].japanese[0].reading || '';
+            }
+        } catch (e) {
+            console.error(e);
+        }
+        return '';
+    }
+
+    // Jisho APIでの包括的な定義構築（英語定義を日本語にするなど）
+    async function fetchFromJishoAll(word) {
+        try {
+            const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://jisho.org/api/v1/search/words?keyword=' + word)}`);
+            const json = await res.json();
+            const jishoData = JSON.parse(json.contents);
+            if (jishoData && jishoData.data && jishoData.data.length > 0) {
+                const entry = jishoData.data[0];
+                const reading = entry.japanese[0].reading || '';
+                const senses = entry.senses.slice(0, 3);
+                
+                // 3つの意味を組み立てる
+                let meaningText = "";
+                senses.forEach((sense, index) => {
+                    meaningText += `① (${sense.parts_of_speech.join(', ')}) ${sense.english_definitions.join(', ')}\n`;
+                });
+                
+                // もし3つない場合はダミー説明を追加
+                if (senses.length < 3) {
+                    meaningText += `② 辞書検索による候補データ。\n③ 詳しい用法をウェブで調べる。`;
+                }
+
+                return { reading, meaning: meaningText };
+            }
+        } catch (e) {
+            console.error(e);
+        }
+        return null;
+    }
+
+    // フォームに値を自動でセットする
+    function fillForm(reading, meaning, example) {
+        document.getElementById('form-reading').value = reading || '';
+        document.getElementById('form-meaning').value = meaning || '';
+        document.getElementById('form-example').value = example || '';
+    }
+
+    /* -------------------------------------------
+       漢字メモの登録とリスト表示（アコーディオン）
+    -------------------------------------------- */
     function addKanji(e) {
         e.preventDefault();
         const newKanji = {
             id: Date.now(),
-            kanji: document.getElementById('form-kanji').value,
-            reading: document.getElementById('form-reading').value,
-            meaning: document.getElementById('form-meaning').value,
-            example: document.getElementById('form-example').value || "（例文なし）",
+            kanji: document.getElementById('form-kanji').value.trim(),
+            reading: document.getElementById('form-reading').value.trim(),
+            meaning: document.getElementById('form-meaning').value.trim(),
+            example: document.getElementById('form-example').value.trim() || "（例文なし）",
             isMastered: false
         };
 
@@ -267,7 +988,22 @@
         saveToStorage();
         document.getElementById('kanji-form').reset();
         renderList();
-        alert("登録しました！");
+        
+        showToast(`「${newKanji.kanji}」をメモしたで！`);
+    }
+
+    // 箇条書きの意味を綺麗に出力するフォーマッタ
+    function formatMeaning(meaningText) {
+        if (!meaningText) return '';
+        const lines = meaningText.split('\n');
+        let html = '<ul class="meaning-list">';
+        lines.forEach(line => {
+            if (line.trim().length > 0) {
+                html += `<li>${line}</li>`;
+            }
+        });
+        html += '</ul>';
+        return html;
     }
 
     // リストの描画
@@ -275,125 +1011,238 @@
         const listContainer = document.getElementById('kanji-list');
         listContainer.innerHTML = '';
 
-        if(kanjiData.length === 0) {
-            listContainer.innerHTML = '<p style="text-align:center; color:#666;">登録された漢字はありません。</p>';
+        if (kanjiData.length === 0) {
+            listContainer.innerHTML = '<p style="text-align:center; color:var(--text-sub); padding:30px;">登録された漢字はありません。上のフォームから登録してみてな！</p>';
             return;
         }
 
-        // 最新の登録が上に来るように逆順で回す
+        // 最新が上に来るように逆順
         [...kanjiData].reverse().forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'kanji-list-item';
-            div.onclick = (e) => {
-                // ボタンクリック時は発火させない
-                if(e.target.tagName !== 'BUTTON') div.classList.toggle('open');
-            };
-
-            div.innerHTML = `
-                <div class="kanji-header">
+            const itemElement = document.createElement('div');
+            itemElement.className = 'kanji-list-item';
+            
+            itemElement.innerHTML = `
+                <div class="kanji-header" onclick="toggleAccordion(this)">
                     <span class="kanji-text">${item.kanji}</span>
-                    <span class="badge ${item.isMastered ? 'badge-green' : 'badge-red'}">
-                        ${item.isMastered ? '覚えた' : '未習得'}
-                    </span>
+                    <div class="kanji-meta">
+                        <span class="badge ${item.isMastered ? 'badge-green' : 'badge-red'}">
+                            ${item.isMastered ? '覚えた' : '未習得'}
+                        </span>
+                        <i class="fa-solid fa-chevron-down chevron-icon"></i>
+                    </div>
                 </div>
                 <div class="kanji-body">
-                    <div class="detail-item"><div class="label">読み</div><div>${item.reading}</div></div>
-                    <div class="detail-item"><div class="label">意味</div><div>${item.meaning}</div></div>
-                    <div class="detail-item"><div class="label">例文</div><div>${item.example}</div></div>
-                    <button class="toggle-status-btn" onclick="toggleStatus(${item.id})">
-                        ${item.isMastered ? '「未習得」に戻す' : '「覚えた」にする'}
-                    </button>
+                    <div class="kanji-body-content">
+                        <div class="detail-group">
+                            <div class="label"><i class="fa-solid fa-microphone"></i> 読み</div>
+                            <div class="value" style="font-weight: 700; color: #d35400;">${item.reading}</div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="label"><i class="fa-solid fa-book"></i> 意味（3つの要約）</div>
+                            <div class="value">${formatMeaning(item.meaning)}</div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="label"><i class="fa-solid fa-pen-nib"></i> 例文</div>
+                            <div class="value" style="font-style: italic; color: #555;">${item.example}</div>
+                        </div>
+                        <div class="kanji-body-footer">
+                            <button class="btn-status" onclick="toggleStatus(${item.id})">
+                                ${item.isMastered ? '<i class="fa-solid fa-xmark"></i> 未習得に戻す' : '<i class="fa-solid fa-check"></i> 覚えた！にする'}
+                            </button>
+                            <button class="btn-outline-danger" onclick="confirmDelete(${item.id}, '${item.kanji}')">
+                                <i class="fa-solid fa-trash-can"></i> 削除
+                            </button>
+                        </div>
+                    </div>
                 </div>
             `;
-            listContainer.appendChild(div);
+            listContainer.appendChild(itemElement);
         });
     }
 
-    // ステータス切り替え（一覧画面用）
+    // アコーディオンの開閉
+    function toggleAccordion(headerElement) {
+        const itemElement = headerElement.parentElement;
+        const isOpen = itemElement.classList.contains('open');
+        
+        document.querySelectorAll('.kanji-list-item').forEach(item => {
+            item.classList.remove('open');
+        });
+
+        if (!isOpen) {
+            itemElement.classList.add('open');
+        }
+    }
+
+    // 覚えた・未習得ステータスの切り替え
     function toggleStatus(id) {
         kanjiData = kanjiData.map(item => item.id === id ? {...item, isMastered: !item.isMastered} : item);
         saveToStorage();
         renderList();
+        showToast("習得ステータスを更新しました！");
     }
 
-    // テストの初期化
+    // 全ての漢字を未習得に戻す
+    function showResetConfirmation() {
+        showConfirmModal(
+            "ステータスのリセット",
+            "登録されているすべての漢字を「未習得」の状態に戻しますか？（最初からテストをやり直せます）",
+            (confirmed) => {
+                if (confirmed) {
+                    kanjiData = kanjiData.map(item => ({...item, isMastered: false}));
+                    saveToStorage();
+                    renderList();
+                    showToast("すべての漢字を未習得に戻したで！");
+                }
+            }
+        );
+    }
+
+    // 削除確認
+    function confirmDelete(id, kanjiName) {
+        showConfirmModal(
+            "漢字の削除",
+            `「${kanjiName}」をメモから完全に削除してもいいですか？`,
+            (confirmed) => {
+                if (confirmed) {
+                    kanjiData = kanjiData.filter(item => item.id !== id);
+                    saveToStorage();
+                    renderList();
+                    showToast(`「${kanjiName}」を削除しました。`);
+                }
+            }
+        );
+    }
+
+    /* -------------------------------------------
+       漢字テストのロジック（リファイン版）
+    -------------------------------------------- */
     function initQuiz() {
-        // まだ覚えてない漢字だけを抽出
+        // 未習得の漢字を抽出
         activeQuizCards = kanjiData.filter(item => !item.isMastered);
-        currentQuizIndex = 0;
-        renderQuizCard();
+        renderQuiz();
     }
 
-    // テストカードの描画
-    function renderQuizCard() {
+    // 漢字テスト全体のレンダリング
+    function renderQuiz() {
         const container = document.getElementById('quiz-container');
 
-        if (activeQuizCards.length === 0) {
-            container.innerHTML = `
-                <div style="text-align: center; padding: 20px 0;">
-                    <h2 style="color: var(--success-color);">全問クリア！ 🎉</h2>
-                    <p>現在、覚えていない漢字はありません。素晴らしい！</p>
-                    <button class="btn btn-primary" onclick="switchTab('memo')" style="width:auto; display:inline-block; padding:10px 20px;">新しい漢字を追加する</button>
-                </div>
-            `;
-            return;
+        if (quizState === 'start') {
+            // 1. テスト開始前のデザイン（「開始」ボタンUI）
+            if (activeQuizCards.length === 0) {
+                container.innerHTML = `
+                    <div class="quiz-start-screen">
+                        <i class="fa-solid fa-face-laugh-beam" style="color: var(--success-color);"></i>
+                        <h2>すべて完璧や！ 🎉</h2>
+                        <p>現在、未習得の漢字はありません。全部マスターしたよ！</p>
+                        <button class="btn btn-primary" onclick="switchTab('memo')" style="width:auto; padding: 14px 28px;">新しい漢字をメモする</button>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div class="quiz-start-screen">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <h2>漢字テストに挑戦</h2>
+                        <p>覚えていない漢字が <strong>${activeQuizCards.length} 語</strong> あるよ！</p>
+                        <button class="btn btn-primary" onclick="startQuizNow()" style="width:auto; padding: 16px 36px;"><i class="fa-solid fa-play"></i> テストを始める</button>
+                    </div>
+                `;
+            }
+        } else if (quizState === 'active') {
+            // 2. クイズ進行中
+            renderActiveCard();
         }
+    }
 
+    function startQuizNow() {
+        quizState = 'active';
+        currentQuizIndex = 0;
+        renderQuiz();
+    }
+
+    // アクティブな問題カードを描画
+    function renderActiveCard() {
+        const container = document.getElementById('quiz-container');
         const currentCard = activeQuizCards[currentQuizIndex];
+        
+        // 進捗度計算
+        const total = activeQuizCards.length;
+        const progressPercentage = ((currentQuizIndex) / total) * 100;
+
         container.innerHTML = `
-            <div style="text-align:center; color:#8e8e93; font-size:0.9rem;">
-                残り ${activeQuizCards.length - currentQuizIndex} 問
+            <div style="display:flex; justify-content:space-between; color:var(--text-sub); font-size:0.9rem; margin-bottom:15px; font-weight:bold;">
+                <span>問題: ${currentQuizIndex + 1} / ${total} 語目</span>
+                <span style="color:#d35400;"><i class="fa-solid fa-hourglass-half"></i> 未クリア: ${total} 語</span>
             </div>
-            <div class="quiz-kanji">${currentCard.kanji}</div>
+
+            <!-- 進捗ゲージ -->
+            <div class="progress-container">
+                <div class="progress-bar" style="width: ${progressPercentage}%"></div>
+            </div>
             
-            <button id="show-answer-btn" class="btn btn-primary" onclick="showQuizAnswer()">答えを見る</button>
+            <div class="quiz-kanji-container">
+                <div class="quiz-kanji">${currentCard.kanji}</div>
+            </div>
+            
+            <button id="show-answer-btn" class="btn btn-primary" onclick="showQuizAnswer()"><i class="fa-solid fa-eye"></i> 答えを見る</button>
             
             <div id="quiz-details" class="quiz-details">
-                <div class="detail-item"><div class="label">読み</div><div style="font-size:1.2rem; font-weight:bold; color:var(--accent-color);">${currentCard.reading}</div></div>
-                <div class="detail-item"><div class="label">意味</div><div>${currentCard.meaning}</div></div>
-                <div class="detail-item"><div class="label">例文</div><div>${currentCard.example}</div></div>
+                <div class="detail-group">
+                    <div class="label"><i class="fa-solid fa-microphone"></i> 読み</div>
+                    <div class="value reading-highlight">${currentCard.reading}</div>
+                </div>
+                <div class="detail-group">
+                    <div class="label"><i class="fa-solid fa-book"></i> 意味（3つの説明）</div>
+                    <div class="value">${formatMeaning(currentCard.meaning)}</div>
+                </div>
+                <div class="detail-group">
+                    <div class="label"><i class="fa-solid fa-pen-nib"></i> 例文</div>
+                    <div class="value" style="font-style: italic; color:#555;">${currentCard.example}</div>
+                </div>
             </div>
 
             <div id="quiz-actions" class="quiz-actions">
-                <button class="btn btn-success" onclick="submitQuizResult(true)">覚えた！</button>
-                <button class="btn btn-secondary" onclick="submitQuizResult(false)">まだ覚えてない</button>
+                <button class="btn btn-success" onclick="submitQuizResult(true)"><i class="fa-solid fa-check"></i> 覚えた！</button>
+                <button class="btn btn-secondary" onclick="submitQuizResult(false)"><i class="fa-solid fa-rotate-right"></i> まだ覚えてない</button>
             </div>
         `;
     }
 
-    // テストの答えを表示
     function showQuizAnswer() {
         document.getElementById('show-answer-btn').style.display = 'none';
         document.getElementById('quiz-details').style.display = 'block';
         document.getElementById('quiz-actions').style.display = 'flex';
     }
 
-    // テスト結果の処理
     function submitQuizResult(isMastered) {
         const currentCard = activeQuizCards[currentQuizIndex];
 
         if (isMastered) {
-            // 元のデータ構造のステータスを更新
+            // メインデータを「覚えた（isMastered: true）」に更新
             kanjiData = kanjiData.map(item => item.id === currentCard.id ? {...item, isMastered: true} : item);
             saveToStorage();
-        }
-
-        // 次のクイズへ（「まだ覚えてない」ならインデックスを進める。覚えた場合は配列から実質消えるのでインデックスはそのまま）
-        if (!isMastered) {
-            currentQuizIndex++;
-        } else {
+            // テスト配列から削除
             activeQuizCards.splice(currentQuizIndex, 1);
+            showToast(`「${currentCard.kanji}」を覚えたリストに登録したで！`);
+        } else {
+            // 次のカードへ進む
+            currentQuizIndex++;
         }
 
-        // 最後の問題を超えたら最初からやり直す（残っている未習得のものだけ）
+        // 最後の問題を超えたら最初に戻る
         if (currentQuizIndex >= activeQuizCards.length) {
             currentQuizIndex = 0;
         }
 
-        renderQuizCard();
+        // 残り問題が0になったらクリア
+        if (activeQuizCards.length === 0) {
+            quizState = 'start';
+        }
+
+        renderQuiz();
     }
 
-    // 最初にページを開いたとき
+    // 初回ロード時
     initQuiz();
 </script>
 
