@@ -39,7 +39,6 @@
             padding: 15px 10px;
             line-height: 1.5;
             overflow-x: hidden;
-            user-select: none;
         }
 
         .container {
@@ -50,6 +49,7 @@
         header {
             text-align: center;
             margin-bottom: 12px;
+            user-select: none;
         }
 
         header h1 {
@@ -77,6 +77,8 @@
             margin-bottom: 15px;
             gap: 4px;
             position: relative;
+            user-select: none;
+            z-index: 10;
         }
 
         .tab {
@@ -102,8 +104,7 @@
             box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
         }
 
-        /* */
-        /* カルーセルスライド構造 */
+        /* カルーセルスライド構造（画面全体でスライド） */
         .swipe-container {
             width: 100%;
             overflow: hidden;
@@ -138,6 +139,7 @@
         .quiz-start-screen {
             text-align: center;
             padding: 30px 10px;
+            user-select: none;
         }
 
         .quiz-start-screen i {
@@ -163,6 +165,7 @@
             padding: 10px 0;
             border-bottom: 1px dashed var(--border-color);
             margin-bottom: 12px;
+            user-select: none;
         }
 
         .quiz-kanji {
@@ -180,6 +183,7 @@
             border-radius: 3px;
             margin-bottom: 10px;
             overflow: hidden;
+            user-select: none;
         }
 
         .progress-bar {
@@ -213,6 +217,7 @@
             display: flex;
             align-items: center;
             gap: 4px;
+            user-select: none;
         }
 
         .detail-group .value {
@@ -262,6 +267,8 @@
             transition: all 0.2s ease;
             text-align: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+            user-select: none;
+            pointer-events: auto;
         }
 
         .btn:active {
@@ -292,6 +299,7 @@
             font-size: 0.8rem;
             width: auto;
             font-weight: bold;
+            pointer-events: auto;
         }
 
         /* 漢字の真下に隙間なく配置するテストボタン */
@@ -301,7 +309,6 @@
             margin-top: 10px;
         }
 
-        /* */
         /* 新規漢字登録（折りたたみアコーディオン） */
         .register-accordion-header {
             background: #e8e5dc;
@@ -317,6 +324,7 @@
             transition: background 0.2s ease;
             margin-bottom: 10px;
             border: 1px solid var(--border-color);
+            user-select: none;
         }
 
         .register-accordion-header:hover {
@@ -344,6 +352,7 @@
             font-size: 0.75rem;
             font-weight: 700;
             color: var(--accent-color);
+            user-select: none;
         }
 
         .form-control {
@@ -371,6 +380,7 @@
             color: #d35400;
             margin-top: 4px;
             font-weight: bold;
+            user-select: none;
         }
 
         .loading-text i {
@@ -388,6 +398,7 @@
             justify-content: space-between;
             align-items: center;
             margin: 10px 0 8px;
+            user-select: none;
         }
 
         .list-section-title {
@@ -433,6 +444,7 @@
             align-items: center;
             padding: 10px 16px;
             cursor: pointer;
+            user-select: none;
         }
 
         .kanji-text {
@@ -503,9 +515,10 @@
             font-weight: bold;
             color: var(--text-main);
             transition: background 0.2s ease;
+            pointer-events: auto;
         }
 
-        /* トースト通知 */
+        /* トースト・モーダルポップアップ */
         .toast-container {
             position: fixed;
             bottom: 25px;
@@ -526,6 +539,7 @@
             transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             pointer-events: none;
             white-space: nowrap;
+            user-select: none;
         }
 
         .toast-container.show {
@@ -533,7 +547,6 @@
             opacity: 1;
         }
 
-        /* 確認用モーダル */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -548,6 +561,7 @@
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.25s ease;
+            user-select: none;
         }
 
         .modal-overlay.show {
@@ -611,8 +625,7 @@
         </div>
     </div>
 
-    <!-- -->
-    <!-- iPhoneホーム画面風のスワイプコンテナ -->
+    <!-- カルーセルスライド構造（指でのドラッグ追従可能） -->
     <div class="swipe-container" id="swipe-container">
         <div id="swipe-wrapper" class="swipe-wrapper">
             
@@ -626,7 +639,7 @@
             <!-- スライド2：漢字メモ一覧 -->
             <div id="memo-panel" class="swipe-slide">
                 
-                <!-- 【超縮小】新しい漢字登録用アコーディオン -->
+                <!-- 新しい漢字登録用アコーディオン（折りたたみ縮小版） -->
                 <div class="register-accordion-header" onclick="toggleRegisterForm()">
                     <span><i class="fa-solid fa-plus-circle" style="color: #d35400; margin-right: 6px;"></i> 新しい漢字を登録する</span>
                     <i id="register-accordion-icon" class="fa-solid fa-chevron-down"></i>
@@ -694,7 +707,6 @@
     </div>
 </div>
 
-<!-- -->
 <script>
     // 各漢字に対して3個の意味、さらにガチ例文を完備したオフライン高速辞書（Web取得失敗時のフォールバック用）
     const offlineDict = {
@@ -740,7 +752,7 @@
         },
         "恣意": { 
             reading: "しい", 
-            meaning: "① 一度に全部ではなく、自分勝手な都合で解釈を組み立てること。\n② 論理的な根拠や客観的な規則がなく、自分勝手な考えで進めること。\n③ 他人の状況を考慮せず、自分の意のままに行動すること。", 
+            meaning: "① 一度に全部ではなく、自分勝手な都合で解釈を組み立てること。\n② 論理的な根拠や客観的な規則がなく、自分勝手な考えで進めること。\n③ 他人の状況を考慮せず、自分の意のまま行動すること。", 
             example: "権力者が法律を恣意的に運用することは決して許されない。" 
         },
         "漸次": { 
@@ -784,12 +796,11 @@
     let inputTimeout = null;
     let pendingModalCallback = null;
 
-    //    // ドラッグ＆スワイプ追従用変数
+    // スワイプ追従用変数
     let currentTabIndex = 0; // 0: クイズ, 1: 一覧
     let touchStartX = 0;
     let touchStartY = 0;
-    let isScrolling = undefined; // 縦スクロールと横スワイプを切り分けるフラグ
-    const swipeContainer = document.getElementById('swipe-container');
+    let isScrolling = undefined; // 縦横切り分け
     const swipeWrapper = document.getElementById('swipe-wrapper');
 
     function saveToStorage() {
@@ -844,16 +855,23 @@
         updateSwipePosition();
     }
 
-    // iPhoneホーム画面風：スワイプ（Drag）追従イベントリスナー
-    swipeContainer.addEventListener('touchstart', e => {
+    // iPhoneホーム画面風：画面全体でのスワイプ追従イベント
+    document.addEventListener('touchstart', e => {
+        // 入力欄、ボタン、アコーディオン等の上でタッチを開始した場合はスワイプを不許可にする
+        const target = e.target;
+        if (target.closest('input') || target.closest('textarea') || target.closest('button') || target.closest('.btn') || target.closest('.btn-status') || target.closest('.btn-outline-danger') || target.closest('.register-accordion-header')) {
+            isScrolling = true; // 縦スクロールと同様に、スワイプを無効化
+            return;
+        }
+
         touchStartX = e.touches[0].clientX;
         touchStartY = e.touches[0].clientY;
         isScrolling = undefined; // 判定リセット
-        swipeWrapper.style.transition = 'none'; // ドラッグ中はトランジションを切って追従
+        swipeWrapper.style.transition = 'none'; // ドラッグ中はトランジションを切る
     }, {passive: true});
 
-    swipeContainer.addEventListener('touchmove', e => {
-        if (isScrolling === true) return; // 縦スクロール判定時はスライド処理を無視
+    document.addEventListener('touchmove', e => {
+        if (isScrolling === true) return; // スワイプ無効時は何もせずスクロールさせる
 
         const touchX = e.touches[0].clientX;
         const touchY = e.touches[0].clientY;
@@ -874,32 +892,37 @@
         if (e.cancelable) e.preventDefault();
 
         // 追従量の計算
-        const containerWidth = swipeContainer.offsetWidth;
+        const containerWidth = window.innerWidth;
         let dragPercent = (diffX / containerWidth) * 100;
 
         // 端での抵抗（バウンス感）を追加
         if (currentTabIndex === 0 && diffX > 0) {
-            dragPercent = dragPercent * 0.35; // 右にこれ以上進まないときの引っ張り感
+            dragPercent = dragPercent * 0.35; 
         } else if (currentTabIndex === 1 && diffX < 0) {
-            dragPercent = dragPercent * 0.35; // 左にこれ以上進まないときの引っ張り感
+            dragPercent = dragPercent * 0.35;
         }
 
         const baseTranslate = currentTabIndex * -50;
-        // wrapperは全体で200%幅なので、diffXのパーセンテージを半減（50%スケール）して適用
         const finalTranslate = baseTranslate + (dragPercent * 0.5);
         swipeWrapper.style.transform = `translateX(${finalTranslate}%)`;
-    }, {passive: false}); // cancelableを有効化するためにpassiveをfalseにする
+    }, {passive: false}); // preventDefault()を有効化するためにpassiveをfalseにする
 
-    swipeContainer.addEventListener('touchend', e => {
+    document.addEventListener('touchend', e => {
         if (isScrolling === true) return;
 
         const touchEndX = e.changedTouches[0].clientX;
         const diffX = touchEndX - touchStartX;
-        const containerWidth = swipeContainer.offsetWidth;
+        const containerWidth = window.innerWidth;
         const dragPercent = (diffX / containerWidth) * 100;
 
-        // 18%以上スワイプしたら、切り替え決定
-        const swipeThreshold = 18;
+        // 【競合対策】ドラッグ距離が極端に小さい(8px未満)場合は、タップ（クリック）と判定しドラッグ位置をリセット
+        if (Math.abs(diffX) < 8) {
+            updateSwipePosition();
+            return;
+        }
+
+        // 15%以上スワイプしたら、切り替え決定
+        const swipeThreshold = 15;
 
         if (dragPercent < -swipeThreshold && currentTabIndex === 0) {
             currentTabIndex = 1; // 一覧へ
@@ -928,15 +951,15 @@
         clearTimeout(inputTimeout);
         inputTimeout = setTimeout(() => {
             fetchKanjiInfoAutomatically();
-        }, 1000); // 打ち終えて1秒経過したら自動検索・全自動取得
+        }, 1000); // 打ち終えて1秒経過したら自動取得
     }
 
-    // Wikipediaなどの文脈から「その漢字を含む日本語文」を賢く探し出すロジック
+    // Webから該当漢字を含む日本語文(例文)と意味を自動取得する賢いAPIロジック
     async function fetchKanjiInfoAutomatically() {
         const kanji = document.getElementById('form-kanji').value.trim();
         if (!kanji) return;
 
-        // 手動ですべて埋まっている場合は邪魔しない
+        // 手動ですべて埋まっている場合は自動上書きしない
         const currentReading = document.getElementById('form-reading').value.trim();
         const currentMeaning = document.getElementById('form-meaning').value.trim();
         if (currentReading && currentMeaning) return;
@@ -948,12 +971,12 @@
         if (offlineDict[kanji]) {
             fillForm(offlineDict[kanji].reading, offlineDict[kanji].meaning, offlineDict[kanji].example);
             loader.style.display = 'none';
-            showToast(`「${kanji}」の情報を高速取得したで！`);
+            showToast(`「${kanji}」の情報を読み込みました！`);
             return;
         }
 
         try {
-            // 2. Wikipedia 日本語 REST API
+            // 2. Wikipedia 日本語 REST API から検索
             const wikiUrl = `https://ja.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(kanji)}`;
             const wikiRes = await fetch(wikiUrl);
             
@@ -972,30 +995,29 @@
                         meaningRaw = definitionMatch[1];
                     }
                     
-                    // 3個以上の詳細な意味を抽出・整形
+                    // 3個以上の詳細な意味を整形
                     const sentences = meaningRaw.split('。').filter(s => s.trim().length > 0);
                     let meaningStr = "";
                     
                     if (sentences.length >= 3) {
                         meaningStr = `① ${sentences[0]}。\n② ${sentences[1]}。\n③ ${sentences[2]}。`;
                     } else if (sentences.length === 2) {
-                        meaningStr = `① ${sentences[0]}。\n② ${sentences[1]}。\n③ 「${kanji}」に関連する一般的な解説や語源。`;
+                        meaningStr = `① ${sentences[0]}。\n② ${sentences[1]}。\n③ 「${kanji}」に関連する一般的な情報。`;
                     } else {
-                        meaningStr = `① ${sentences[0]}。\n② 辞書検索に基づく主な日本語表現。\n③ ビジネス・ニュース等での標準的な使い勝手。`;
+                        meaningStr = `① ${sentences[0]}。\n② 辞書検索に基づく主な表現。\n③ ビジネスやニュースなどで用いられる。`;
                     }
 
-                    // 【核心】解説文の中からその「漢字」が使われている実際の文章を「例文」として検索・ひっぱり出す！
+                    // 【例文自動抽出】解説文の中からその「漢字」が使われている自然な一文を「例文」として検索してひっぱる！
                     let foundExample = "";
                     for (let sentence of sentences) {
                         sentence = sentence.trim();
-                        // 「とは」などの定義を説明する文は避け、その漢字を含んでいる自然な一文をひき肉のように切り出す
+                        // 「とは」等の定義を除き、その漢字を伴う5文字〜55文字前後の自然な一文を探す
                         if (sentence.includes(kanji) && !sentence.includes("とは") && sentence.length > 5 && sentence.length < 55) {
                             foundExample = sentence + "。";
                             break;
                         }
                     }
 
-                    // 見つからなければ漢字が含まれる文章なら何でも引っ張る
                     if (!foundExample) {
                         for (let sentence of sentences) {
                             sentence = sentence.trim();
@@ -1006,12 +1028,10 @@
                         }
                     }
 
-                    // それでも見つからない場合の自然なフォールバック
                     if (!foundExample) {
-                        foundExample = `実社会において、「${kanji}」は非常に重要な役割を果たしています。`;
+                        foundExample = `現代社会の文脈において、「${kanji}」は非常に重要な表現である。`;
                     }
 
-                    // 読みがまだ空なら別APIから読みをバックアップ
                     if (!reading) {
                         const jishoReading = await fetchReadingFromJisho(kanji);
                         if (jishoReading) reading = jishoReading;
@@ -1019,18 +1039,18 @@
 
                     fillForm(reading, meaningStr, foundExample);
                     loader.style.display = 'none';
-                    showToast(`「${kanji}」の情報を自動取得・例文検索成功！`);
+                    showToast(`「${kanji}」の情報をWebから自動検索しました！`);
                     return;
                 }
             }
 
-            // 3. Jisho API (最終バックアップ)
+            // 3. Jisho API (バックアップ)
             const jishoBackup = await fetchFromJishoAll(kanji);
             if (jishoBackup) {
-                fillForm(jishoBackup.reading, jishoBackup.meaning, `日常生活や文脈において、「${kanji}」は広く応用されています。`);
+                fillForm(jishoBackup.reading, jishoBackup.meaning, `日常生活や文脈において、「${kanji}」は幅広く使用されます。`);
                 showToast(`「${kanji}」のデータを取得！`);
             } else {
-                showToast("見つかりませんでした。手動で入力してください！");
+                showToast("Web辞書にありませんでした。手動入力をお願いします！");
             }
 
         } catch (error) {
@@ -1068,7 +1088,7 @@
                 });
                 
                 if (senses.length < 3) {
-                    meaningText += `② 英語表現：${senses[0] ? senses[0].english_definitions.join(', ') : 'No data'}\n③ 用語集に基づく一般的な語。`;
+                    meaningText += `② 英語：${senses[0] ? senses[0].english_definitions.join(', ') : 'No data'}\n③ 用語集に基づく一般的な語。`;
                 }
 
                 return { reading, meaning: meaningText };
@@ -1083,7 +1103,7 @@
         document.getElementById('form-example').value = example || '';
     }
 
-    // メモ登録処理
+    // メモ登録
     function addKanji(e) {
         e.preventDefault();
         const newKanji = {
@@ -1099,7 +1119,7 @@
         saveToStorage();
         document.getElementById('kanji-form').reset();
         
-        toggleRegisterForm(); // 登録後は自動でアコーディオンを閉じる
+        toggleRegisterForm(); // 登録後は自動でフォームを閉じる
         renderList();
         
         showToast(`「${newKanji.kanji}」を登録したで！`);
@@ -1118,6 +1138,7 @@
         return html;
     }
 
+    // 漢字メモ一覧の描画
     function renderList() {
         const listContainer = document.getElementById('kanji-list');
         listContainer.innerHTML = '';
@@ -1133,7 +1154,7 @@
             itemElement.className = 'kanji-list-item';
             
             itemElement.innerHTML = `
-                <div class="kanji-header" onclick="toggleAccordion(this)">
+                <div class="kanji-header">
                     <span class="kanji-text">${item.kanji}</span>
                     <div class="kanji-meta">
                         <span class="badge ${item.isMastered ? 'badge-green' : 'badge-red'}">
@@ -1153,42 +1174,61 @@
                             <div class="value">${formatMeaning(item.meaning)}</div>
                         </div>
                         <div class="detail-group">
-                            <div class="label"><i class="fa-solid fa-pen-nib"></i> 例文（Web自動抽出）</div>
+                            <div class="label"><i class="fa-solid fa-pen-nib"></i> 例文</div>
                             <div class="value" style="font-style: italic; color: #4a5568;">${item.example}</div>
                         </div>
                         <div class="kanji-body-footer">
-                            <button class="btn-status" onclick="toggleStatus(${item.id})">
+                            <button class="btn-status" data-id="${item.id}">
                                 ${item.isMastered ? '<i class="fa-solid fa-xmark"></i> 未習得に戻す' : '<i class="fa-solid fa-check"></i> 覚えたにする'}
                             </button>
-                            <button class="btn-outline-danger" onclick="confirmDelete(${item.id}, '${item.kanji}')">
+                            <button class="btn-outline-danger" data-id="${item.id}" data-kanji="${item.kanji}">
                                 <i class="fa-solid fa-trash-can"></i> 削除
                             </button>
                         </div>
                     </div>
                 </div>
             `;
+
+            // 【超重要】クリックバグの完全解消：closest()を用いたクリック処理
+            itemElement.addEventListener('click', (e) => {
+                const target = e.target;
+                
+                // フッターのボタン類をクリックした時はアコーディオンのトグルを完全無効化
+                const statusBtn = target.closest('.btn-status');
+                const deleteBtn = target.closest('.btn-outline-danger');
+                
+                if (statusBtn) {
+                    const id = parseInt(statusBtn.getAttribute('data-id'));
+                    toggleStatus(id);
+                    return;
+                }
+                
+                if (deleteBtn) {
+                    const id = parseInt(deleteBtn.getAttribute('data-id'));
+                    const kanjiName = deleteBtn.getAttribute('data-kanji');
+                    confirmDelete(id, kanjiName);
+                    return;
+                }
+
+                // ヘッダーや余白をクリックした時だけアコーディオンを開閉
+                const isOpen = itemElement.classList.contains('open');
+                document.querySelectorAll('.kanji-list-item').forEach(item => {
+                    item.classList.remove('open');
+                });
+                if (!isOpen) {
+                    itemElement.classList.add('open');
+                }
+            });
+
             listContainer.appendChild(itemElement);
         });
-    }
-
-    function toggleAccordion(headerElement) {
-        const itemElement = headerElement.parentElement;
-        const isOpen = itemElement.classList.contains('open');
-        
-        document.querySelectorAll('.kanji-list-item').forEach(item => {
-            item.classList.remove('open');
-        });
-
-        if (!isOpen) {
-            itemElement.classList.add('open');
-        }
     }
 
     function toggleStatus(id) {
         kanjiData = kanjiData.map(item => item.id === id ? {...item, isMastered: !item.isMastered} : item);
         saveToStorage();
         renderList();
-        showToast("習得ステータスを切り替えたよ！");
+        showToast("習得ステータスを切り替えました！");
     }
 
     function showResetConfirmation() {
@@ -1268,7 +1308,7 @@
         const progressPercentage = ((currentQuizIndex) / total) * 100;
 
         container.innerHTML = `
-            <div style="display:flex; justify-content:space-between; color:var(--text-sub); font-size:0.75rem; margin-bottom:6px; font-weight:bold;">
+            <div style="display:flex; justify-content:space-between; color:var(--text-sub); font-size:0.75rem; margin-bottom:6px; font-weight:bold; user-select:none;">
                 <span>問題: ${currentQuizIndex + 1} / ${total} 語目</span>
                 <span style="color:#d35400;"><i class="fa-solid fa-hourglass-half"></i> 未マスター: ${total} 語</span>
             </div>
@@ -1283,10 +1323,10 @@
                 <div class="quiz-kanji">${currentCard.kanji}</div>
             </div>
             
-            <!-- 答えを見るボタン（スクロール不要。親指の位置に固定出現） -->
+            <!-- 答えを見るボタン（親指の届く位置。漢字の真下に即時出現） -->
             <button id="show-answer-btn" class="btn btn-primary" onclick="showQuizAnswer()"><i class="fa-solid fa-eye"></i> 答えを見る</button>
             
-            <!-- 漢字の真下に完全集約される答えグループ -->
+            <!-- スクロールを一切排除して漢字の真下に完全集約される答えグループ -->
             <div id="quiz-details" class="quiz-details">
                 <div class="detail-group">
                     <div class="label"><i class="fa-solid fa-microphone"></i> 読み</div>
@@ -1302,7 +1342,7 @@
                 </div>
             </div>
 
-            <!-- 覚えた・まだ アクションボタン。答えを見るのと同じ領域に出現するから親指1ミリも動かさなくてOK -->
+            <!-- 覚えた・まだ アクションボタン。答えを見るのと同じ領域に出現するため親指移動ゼロ設計 -->
             <div id="quiz-actions" class="quiz-actions">
                 <button class="btn btn-success" onclick="submitQuizResult(true)"><i class="fa-solid fa-check"></i> 覚えた！</button>
                 <button class="btn btn-secondary" onclick="submitQuizResult(false)"><i class="fa-solid fa-rotate-right"></i> まだ…</button>
