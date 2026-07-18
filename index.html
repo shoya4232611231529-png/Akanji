@@ -2,13 +2,14 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-select=no">
     <title>漢字メモ＆テスト - 極</title>
     <!-- アイコンフォントとGoogleフォントの読み込み -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <style>
         :root {
             --bg-color: #f5f4f0; /* 落ち着いた和モダンな薄いベージュ */
@@ -20,55 +21,52 @@
             --border-color: #e2dfd8;
             --success-color: #27ae60;
             --danger-color: #c0392b;
-            --shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+            --transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
-            padding: 40px 20px;
-            line-height: 1.6;
+            padding: 15px 10px;
+            line-height: 1.5;
+            overflow-x: hidden;
+            user-select: none;
         }
 
         .container {
-            max-width: 650px;
+            max-width: 500px;
             margin: 0 auto;
         }
 
-        /* ヘッダーデザイン */
+        /* ヘッダーデザインのコンパクト化 */
         header {
             text-align: center;
-            margin-bottom: 35px;
+            margin-bottom: 15px;
         }
 
         header h1 {
-            font-size: 2rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             color: var(--accent-color);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 8px;
         }
 
         header h1 i {
-            font-size: 1.6rem;
+            font-size: 1.2rem;
             color: #d35400; /* 朱色 */
-        }
-
-        header p {
-            font-size: 0.95rem;
-            color: var(--text-sub);
-            margin-top: 8px;
         }
 
         /* ナビゲーションタブ */
@@ -76,32 +74,33 @@
             display: flex;
             background: #e8e5dc;
             border-radius: 30px;
-            padding: 6px;
-            margin-bottom: 30px;
-            gap: 6px;
+            padding: 4px;
+            margin-bottom: 15px;
+            gap: 4px;
+            position: relative;
         }
 
         .tab {
             flex: 1;
             text-align: center;
-            padding: 14px;
+            padding: 10px;
             cursor: pointer;
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #7f8c8d;
             border-radius: 25px;
             transition: var(--transition);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .tab.active {
             background: var(--card-bg);
             color: var(--accent-color);
             font-weight: 700;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
         }
 
         .panel {
@@ -110,71 +109,72 @@
 
         .panel.active {
             display: block;
-            animation: fadeIn 0.4s ease;
+            animation: fadeIn 0.3s ease;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(12px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         /* カードの共通デザイン */
         .card {
             background: var(--card-bg);
-            border-radius: 20px;
-            padding: 30px;
+            border-radius: 16px;
+            padding: 18px;
             box-shadow: var(--shadow);
-            margin-bottom: 25px;
+            margin-bottom: 15px;
             border: 1px solid var(--border-color);
             transition: var(--transition);
             position: relative;
-            overflow: hidden;
         }
 
-        /* 漢字テスト UI */
+        /* 漢字テスト UIのスクロール不要調整 */
         .quiz-start-screen {
             text-align: center;
-            padding: 40px 20px;
+            padding: 30px 10px;
         }
 
         .quiz-start-screen i {
-            font-size: 4.5rem;
+            font-size: 3.5rem;
             color: #d35400;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
         }
 
         .quiz-start-screen h2 {
-            font-size: 1.6rem;
-            margin-bottom: 12px;
+            font-size: 1.3rem;
+            margin-bottom: 8px;
             font-weight: 700;
         }
 
         .quiz-start-screen p {
             color: var(--text-sub);
-            font-size: 1.1rem;
-            margin-bottom: 35px;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
         }
 
+        /* テスト中のコンテナ配置 */
         .quiz-kanji-container {
             text-align: center;
-            padding: 40px 10px;
+            padding: 15px 0;
+            border-bottom: 1px dashed var(--border-color);
+            margin-bottom: 15px;
         }
 
         .quiz-kanji {
-            font-size: 5rem;
+            font-size: 3.8rem;
             font-weight: 700;
             color: var(--accent-color);
-            margin-bottom: 25px;
-            letter-spacing: 6px;
+            letter-spacing: 4px;
         }
 
         /* プログレスバー */
         .progress-container {
             width: 100%;
-            height: 6px;
+            height: 5px;
             background-color: #e8e5dc;
             border-radius: 3px;
-            margin-bottom: 25px;
+            margin-bottom: 12px;
             overflow: hidden;
         }
 
@@ -182,43 +182,37 @@
             height: 100%;
             background: linear-gradient(90deg, #34495e, #d35400);
             width: 0%;
-            transition: width 0.4s ease;
+            transition: width 0.3s ease;
         }
 
+        /* 答えエリア（漢字の真下） */
         .quiz-details {
             display: none;
-            border-top: 1px dashed var(--border-color);
-            padding-top: 25px;
-            margin-top: 25px;
-            text-align: left;
-            animation: fadeIn 0.3s ease;
+            padding-bottom: 10px;
+            animation: fadeIn 0.25s ease;
         }
 
-        /* ラベルとデータの定義 */
         .detail-group {
-            margin-bottom: 20px;
+            margin-bottom: 12px;
         }
 
         .detail-group .label {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: var(--text-sub);
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 6px;
+            margin-bottom: 3px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
 
         .detail-group .value {
-            font-size: 1.15rem;
+            font-size: 0.95rem;
             color: var(--text-main);
-            padding-left: 2px;
         }
 
         .reading-highlight {
-            font-size: 1.65rem !important;
+            font-size: 1.4rem !important;
             font-weight: 700;
             color: #d35400;
         }
@@ -230,35 +224,36 @@
 
         .meaning-list li {
             position: relative;
-            padding-left: 24px;
-            margin-bottom: 8px;
+            padding-left: 18px;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
         }
 
         .meaning-list li::before {
             content: "•";
             color: #d35400;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             position: absolute;
-            left: 6px;
-            top: -4px;
+            left: 4px;
+            top: -2px;
         }
 
-        /* ボタンデザイン */
+        /* ボタンデザインの最適化 */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             width: 100%;
-            padding: 16px;
+            padding: 12px;
             border: none;
-            border-radius: 14px;
-            font-size: 1.05rem;
+            border-radius: 12px;
+            font-size: 0.95rem;
             font-weight: 700;
             cursor: pointer;
             transition: var(--transition);
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
         }
 
         .btn:active {
@@ -274,22 +269,9 @@
             background-color: #1a252f;
         }
 
-        .btn-blue {
-            background-color: #2980b9;
-            color: white;
-        }
-
-        .btn-blue:hover {
-            background-color: #217dbb;
-        }
-
         .btn-success {
             background-color: var(--success-color);
             color: white;
-        }
-
-        .btn-success:hover {
-            background-color: #219653;
         }
 
         .btn-secondary {
@@ -297,52 +279,76 @@
             color: white;
         }
 
-        .btn-secondary:hover {
-            background-color: #7f8c8d;
-        }
-
         .btn-outline-danger {
             background: transparent;
             border: 1px solid var(--danger-color);
             color: var(--danger-color);
-            padding: 10px 18px;
-            border-radius: 10px;
-            font-size: 0.9rem;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
             width: auto;
             font-weight: bold;
         }
 
-        .btn-outline-danger:hover {
-            background: var(--danger-color);
-            color: white;
-        }
-
+        /* アクションボタン（覚えた・覚えてない）を漢字の真下に隙間なく配置 */
         .quiz-actions {
             display: none;
-            gap: 18px;
-            margin-top: 30px;
+            gap: 12px;
+            margin-top: 10px;
         }
 
-        /* 漢字登録フォーム */
+        /* 漢字登録アコーディオン（超縮小） */
+        .register-accordion-header {
+            background: #e8e5dc;
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--accent-color);
+            transition: var(--transition);
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .register-accordion-header:hover {
+            background: #dfdbd0;
+        }
+
+        .register-accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .register-accordion-content.open {
+            max-height: 800px; /* 十分な高さ */
+            margin-bottom: 15px;
+        }
+
+        /* 漢字登録フォーム内の余白削減 */
         .form-group {
-            margin-bottom: 22px;
+            margin-bottom: 12px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
+            margin-bottom: 4px;
+            font-size: 0.8rem;
             font-weight: 700;
             color: var(--accent-color);
         }
 
         .form-control {
             width: 100%;
-            padding: 14px 18px;
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
+            padding: 10px 14px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 10px;
             box-sizing: border-box;
-            font-size: 1rem;
+            font-size: 0.9rem;
             transition: var(--transition);
             background: #fafaf9;
         }
@@ -351,17 +357,16 @@
             outline: none;
             border-color: #d35400;
             background: #ffffff;
-            box-shadow: 0 0 0 4px rgba(211, 84, 0, 0.1);
         }
 
         /* 自動検知中ローダー */
         .loading-text {
             display: none;
             align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
+            gap: 6px;
+            font-size: 0.8rem;
             color: #d35400;
-            margin-top: 8px;
+            margin-top: 4px;
             font-weight: bold;
         }
 
@@ -379,79 +384,70 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 35px 0 15px;
+            margin: 15px 0 10px;
         }
 
         .list-section-title {
-            font-size: 1.25rem;
+            font-size: 1.05rem;
             color: var(--accent-color);
             font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .btn-reset-all {
             background: none;
             border: 1px solid var(--border-color);
-            padding: 8px 14px;
-            border-radius: 10px;
-            font-size: 0.85rem;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
             font-weight: bold;
             color: var(--text-main);
             cursor: pointer;
             transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
 
         .btn-reset-all:hover {
             background: #e8e5dc;
-            border-color: var(--text-sub);
         }
 
         .kanji-list-item {
             background: var(--card-bg);
-            border-radius: 16px;
-            margin-bottom: 14px;
+            border-radius: 12px;
+            margin-bottom: 8px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.01);
             overflow: hidden;
             transition: var(--transition);
-        }
-
-        .kanji-list-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 18px rgba(0,0,0,0.03);
         }
 
         .kanji-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 24px;
+            padding: 12px 16px;
             cursor: pointer;
-            user-select: none;
         }
 
         .kanji-text {
-            font-size: 1.4rem;
+            font-size: 1.15rem;
             font-weight: 700;
             color: var(--accent-color);
-            letter-spacing: 1px;
         }
 
         .kanji-meta {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 10px;
         }
 
         .badge {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
             font-weight: 700;
         }
 
@@ -460,20 +456,20 @@
 
         .chevron-icon {
             color: var(--text-sub);
-            transition: transform 0.3s ease;
+            transition: transform 0.2s ease;
+            font-size: 0.8rem;
         }
 
         /* アコーディオン開閉 */
         .kanji-body {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition: max-height 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             background: #fafaf9;
-            border-top: 0 solid var(--border-color);
         }
 
         .kanji-list-item.open .kanji-body {
-            max-height: 600px;
+            max-height: 500px;
             border-top: 1px solid var(--border-color);
         }
 
@@ -482,55 +478,51 @@
         }
 
         .kanji-body-content {
-            padding: 24px;
+            padding: 15px;
         }
 
         .kanji-body-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 25px;
-            padding-top: 18px;
+            margin-top: 15px;
+            padding-top: 12px;
             border-top: 1px dashed var(--border-color);
         }
 
         .btn-status {
             background: none;
             border: 1px solid var(--border-color);
-            padding: 10px 18px;
-            border-radius: 10px;
+            padding: 8px 14px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: bold;
             color: var(--text-main);
             transition: var(--transition);
         }
 
-        .btn-status:hover {
-            background: #fff;
-            border-color: var(--text-main);
-        }
-
-        /* オリジナル トースト通知デザイン */
+        /* オリジナル トースト通知 */
         .toast-container {
             position: fixed;
-            bottom: 30px;
+            bottom: 25px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
             background: rgba(44, 62, 80, 0.95);
             color: white;
-            padding: 14px 28px;
-            border-radius: 50px;
+            padding: 10px 20px;
+            border-radius: 30px;
             font-weight: bold;
-            font-size: 0.95rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            font-size: 0.85rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
             z-index: 1000;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             opacity: 0;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             pointer-events: none;
+            white-space: nowrap;
         }
 
         .toast-container.show {
@@ -538,21 +530,21 @@
             opacity: 1;
         }
 
-        /* カスタム確認ダイアログ (Modal) */
+        /* 確認用モーダル */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.35);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 2000;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.25s ease;
         }
 
         .modal-overlay.show {
@@ -562,13 +554,13 @@
 
         .modal-card {
             background: white;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 400px;
-            padding: 25px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            transform: translateY(30px);
-            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border-radius: 16px;
+            width: 85%;
+            max-width: 340px;
+            padding: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            transform: translateY(20px);
+            transition: transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
             text-align: center;
         }
 
@@ -577,20 +569,25 @@
         }
 
         .modal-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 15px;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
             color: var(--accent-color);
         }
 
         .modal-card p {
             color: var(--text-sub);
-            font-size: 0.95rem;
-            margin-bottom: 25px;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
         }
 
         .modal-buttons {
             display: flex;
-            gap: 12px;
+            gap: 10px;
+        }
+
+        .modal-buttons .btn {
+            padding: 10px;
+            font-size: 0.85rem;
         }
     </style>
 </head>
@@ -599,15 +596,14 @@
 <div class="container">
     <header>
         <h1><i class="fa-solid fa-feather-pointed"></i> 漢字メモ ＆ テスト</h1>
-        <p>読めへん漢字はメモして、即座にクイズに変換！</p>
     </header>
 
     <!-- ナビゲーションタブ -->
     <div class="tabs">
-        <div class="tab active" onclick="switchTab('quiz')">
+        <div id="tab-quiz" class="tab active" onclick="switchTab('quiz')">
             <i class="fa-solid fa-graduation-cap"></i> 漢字テスト
         </div>
-        <div class="tab" onclick="switchTab('memo')">
+        <div id="tab-memo" class="tab" onclick="switchTab('memo')">
             <i class="fa-solid fa-list-ul"></i> 漢字メモ一覧
         </div>
     </div>
@@ -615,37 +611,44 @@
     <!-- パネル1：漢字テスト -->
     <div id="quiz-panel" class="panel active">
         <div id="quiz-container" class="card">
-            <!-- JavaScriptで動的に中身（スタート、テスト、完了画面）を入れ替える -->
+            <!-- JavaScriptでスクロール不要なテスト画面がここに動的構築される -->
         </div>
     </div>
 
     <!-- パネル2：漢字メモ一覧 -->
     <div id="memo-panel" class="panel">
-        <!-- 漢字追加フォーム -->
-        <div class="card">
-            <h3 style="margin-bottom:20px; font-size:1.2rem;"><i class="fa-solid fa-plus-circle" style="color: #d35400;"></i> 新しい漢字を登録</h3>
-            <form id="kanji-form" onsubmit="addKanji(event)">
-                <div class="form-group">
-                    <label>漢字</label>
-                    <input type="text" id="form-kanji" class="form-control" required placeholder="例：稟議" oninput="handleKanjiInput()">
-                    <div id="loading-indicator" class="loading-text">
-                        <i class="fa-solid fa-circle-notch"></i> ネット辞書から自動取得中...
+        
+        <!-- 【超縮小】新しい漢字登録用アコーディオン -->
+        <div class="register-accordion-header" onclick="toggleRegisterForm()">
+            <span><i class="fa-solid fa-plus-circle" style="color: #d35400; margin-right: 6px;"></i> 新しい漢字を登録する</span>
+            <i id="register-accordion-icon" class="fa-solid fa-chevron-down"></i>
+        </div>
+        
+        <div id="register-form-container" class="register-accordion-content">
+            <div class="card" style="margin-bottom: 0;">
+                <form id="kanji-form" onsubmit="addKanji(event)">
+                    <div class="form-group">
+                        <label>漢字</label>
+                        <input type="text" id="form-kanji" class="form-control" required placeholder="例：稟議" oninput="handleKanjiInput()">
+                        <div id="loading-indicator" class="loading-text">
+                            <i class="fa-solid fa-circle-notch"></i> 自動取得中...
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label>読み</label>
-                    <input type="text" id="form-reading" class="form-control" required placeholder="例：りんぎ">
-                </div>
-                <div class="form-group">
-                    <label>意味 (①、②、③など3つ以上の詳細な説明)</label>
-                    <textarea id="form-meaning" class="form-control" rows="4" required placeholder="例：&#13;① 会議を開く手間を省くため、書類を回して承認を得ること。&#13;② 組織において、決裁を仰ぐための一連の手続き。&#13;③ 関係部署との合議を完了させること。"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>例文</label>
-                    <input type="text" id="form-example" class="form-control" placeholder="例：新しいPCの購入について稟議を通す。">
-                </div>
-                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save"></i> メモを登録する</button>
-            </form>
+                    <div class="form-group">
+                        <label>読み</label>
+                        <input type="text" id="form-reading" class="form-control" required placeholder="自動入力されます">
+                    </div>
+                    <div class="form-group">
+                        <label>意味 (3つの詳細説明に自動補完)</label>
+                        <textarea id="form-meaning" class="form-control" rows="3" required placeholder="自動入力されます"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>例文</label>
+                        <input type="text" id="form-example" class="form-control" placeholder="自動入力または入力してください">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="padding:10px;"><i class="fa-solid fa-save"></i> メモを登録する</button>
+                </form>
+            </div>
         </div>
 
         <!-- 一覧リストのヘッダー -->
@@ -657,11 +660,12 @@
                 <i class="fa-solid fa-rotate"></i> すべて未習得に戻す
             </button>
         </div>
+        
         <div id="kanji-list"></div>
     </div>
 </div>
 
-<!-- カスタム通知用トースト -->
+<!-- カスタム通知トースト -->
 <div id="toast" class="toast-container">
     <i class="fa-solid fa-circle-info"></i>
     <span id="toast-message">メッセージ</span>
@@ -673,14 +677,14 @@
         <h3 id="modal-title">確認</h3>
         <p id="modal-message">本当に実行してもよろしいですか？</p>
         <div class="modal-buttons">
-            <button class="btn btn-secondary" style="padding:10px;" onclick="closeModal(false)">いいえ</button>
-            <button id="modal-confirm-btn" class="btn btn-primary" style="padding:10px; background-color:var(--danger-color);" onclick="closeModal(true)">はい</button>
+            <button class="btn btn-secondary" onclick="closeModal(false)">いいえ</button>
+            <button id="modal-confirm-btn" class="btn btn-primary" style="background-color:var(--danger-color);" onclick="closeModal(true)">はい</button>
         </div>
     </div>
 </div>
 
 <script>
-    // 1. 各漢字に対して3個以上の意味を盛り込んだローカル辞書データ（超高速・オフライン補完用）
+    // 各漢字に対して3個以上の意味を盛り込んだローカル辞書データ（超高速・オフライン補完用）
     const offlineDict = {
         "稟議": { 
             reading: "りんぎ", 
@@ -708,6 +712,7 @@
             example: "彼女のプレゼンは完璧だった。" 
         },
         "蔓延": { 
+            reading: "まんえん", 
             meaning: "① 感染症や好ましくない習慣、思想などが社会全体に広く伝播すること。\n② 植物のつるが四方に伸び広がるように、勢いが止まらずに拡散すること。\n③ 望ましくない事態が制御困難な規模で全域に行き渡ること。", 
             reading: "まんえん", 
             example: "感染症の蔓延を防止するためのルールを敷く。" 
@@ -724,8 +729,8 @@
         },
         "恣意": { 
             reading: "しい", 
-            meaning: "① 論理的な根拠や客観的な規則がなく、自分勝手な考えで進めること。\n② その時の気分や個人的な都合だけでルールを解釈すること。\n③ 他人の状況を考慮せず、自分の意のままに行動すること。", 
-            example: "法律を恣意的に解釈することは禁じられている。" 
+            meaning: "① 一度に全部ではなく、自分勝手な都合で解釈を組み立てること。\n② 論理的な根拠や客観的な規則がなく、自分勝手な考えで進めること。\n③ 他人の状況を考慮せず、自分の意のままに行動すること。", 
+            example: "ルールを恣意的に運用してはならない。" 
         },
         "漸次": { 
             reading: "ぜんじ", 
@@ -754,31 +759,27 @@
         }
     };
 
-    // 2. 初期データ（LocalStorageが空のときの初期値）
+    // 初期データ（LocalStorageが空のとき）
     const defaultData = [
         { id: 1, kanji: "稟議", reading: "りんぎ", meaning: "① 会議を開く手間を省くため、関係部署に書類を回して承認を得ること。\n② 組織において、決裁権を持つ上司の承認を仰ぐ一連の手続き。\n③ 担当者が起案し、各役職者へ順次合議を行うこと。", example: "稟議書を作成して上司に提出する。", isMastered: false },
         { id: 2, kanji: "補填", reading: "ほてん", meaning: "① 不足している金額や物質を他のもので埋め合わせること。\n② 赤字や損失が生じた際に、それを補い埋める行為。\n③ 欠損が生じた領域に物量を追加して元の満ちた状態に戻すこと。", example: "赤字を自己資金で補填する。", isMastered: false },
         { id: 3, kanji: "脆弱", reading: "ぜいじゃく", meaning: "① 構造や性質がもろく弱く、壊れやすい様子であること。\n② コンピュータシステムにおいて、安全上の欠陥や弱点が存在する状態。\n③ 体質やメンタル面において外部からの刺激に耐える力が乏しいこと。", example: "このシステムのセキュリティは脆弱だ。", isMastered: true }
     ];
 
-    // LocalStorageからデータをロードする
     let kanjiData = JSON.parse(localStorage.getItem('kanjiData')) || defaultData;
     let activeQuizCards = [];
     let currentQuizIndex = 0;
-    let quizState = 'start'; // 'start' (開始画面), 'active' (進行中)
-    
-    // 自動取得のディレイ（デバウンス）用のタイマー
+    let quizState = 'start'; // 'start', 'active'
+    let currentTab = 'quiz'; // スワイプの追跡用
     let inputTimeout = null;
-
-    // トーク・コールバック用の変数
     let pendingModalCallback = null;
 
-    // データを保存する
+    // データをローカルストレージに保存
     function saveToStorage() {
         localStorage.setItem('kanjiData', JSON.stringify(kanjiData));
     }
 
-    // トースト通知を表示（alertの代わり）
+    // トースト通知（美しいフェードイン＆アウト）
     function showToast(message) {
         const toast = document.getElementById('toast');
         const toastMessage = document.getElementById('toast-message');
@@ -787,10 +788,10 @@
         
         setTimeout(() => {
             toast.classList.remove('show');
-        }, 3000);
+        }, 2500);
     }
 
-    // カスタム確認ダイアログ（confirmの代わり）
+    // カスタムダイアログ確認画面
     function showConfirmModal(title, message, callback) {
         document.getElementById('modal-title').textContent = title;
         document.getElementById('modal-message').textContent = message;
@@ -806,39 +807,76 @@
         }
     }
 
+    // タブスワイプ切り替えの処理
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    document.addEventListener('touchstart', e => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+    }, {passive: true});
+
+    document.addEventListener('touchend', e => {
+        let touchEndX = e.changedTouches[0].clientX;
+        let touchEndY = e.changedTouches[0].clientY;
+        
+        let diffX = touchEndX - touchStartX;
+        let diffY = touchEndY - touchStartY;
+
+        // 横スワイプ量が大きく、縦スワイプが少ない時のみタブ切り替え
+        if (Math.abs(diffX) > 80 && Math.abs(diffY) < 50) {
+            if (diffX < 0 && currentTab === 'quiz') {
+                switchTab('memo');
+            } else if (diffX > 0 && currentTab === 'memo') {
+                switchTab('quiz');
+            }
+        }
+    }, {passive: true});
+
     // タブ切り替え
     function switchTab(tabName) {
+        currentTab = tabName;
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
 
         if(tabName === 'quiz') {
-            document.querySelectorAll('.tab')[0].classList.add('active');
+            document.getElementById('tab-quiz').classList.add('active');
             document.getElementById('quiz-panel').classList.add('active');
-            quizState = 'start'; // 開始画面に戻す
+            quizState = 'start';
             initQuiz();
         } else {
-            document.querySelectorAll('.tab')[1].classList.add('active');
+            document.getElementById('tab-memo').classList.add('active');
             document.getElementById('memo-panel').classList.add('active');
             renderList();
         }
     }
 
-    /* -------------------------------------------
-       自動辞書取得機能 (全自動トリガー & 高性能API)
-    -------------------------------------------- */
+    // 登録アコーディオン（折りたたみ）のトグル
+    function toggleRegisterForm() {
+        const content = document.getElementById('register-form-container');
+        const icon = document.getElementById('register-accordion-icon');
+        
+        if (content.classList.contains('open')) {
+            content.classList.remove('open');
+            icon.style.transform = 'rotate(0deg)';
+        } else {
+            content.classList.add('open');
+            icon.style.transform = 'rotate(180deg)';
+        }
+    }
+
     function handleKanjiInput() {
-        // キーを打ち込んでから1秒停止したら自動取得を実行（デバウンス処理）
         clearTimeout(inputTimeout);
         inputTimeout = setTimeout(() => {
             fetchKanjiInfoAutomatically();
-        }, 1000);
+        }, 800); // 打ち終わって0.8秒待って起動
     }
 
     async function fetchKanjiInfoAutomatically() {
         const kanji = document.getElementById('form-kanji').value.trim();
         if (!kanji) return;
 
-        // 読み、意味、例文がすでに埋まっていれば自動上書きしない
+        // すでに全項目手動入力されている場合は上書きしない
         const currentReading = document.getElementById('form-reading').value.trim();
         const currentMeaning = document.getElementById('form-meaning').value.trim();
         if (currentReading && currentMeaning) return;
@@ -846,16 +884,16 @@
         const loader = document.getElementById('loading-indicator');
         loader.style.display = 'flex';
 
-        // 1. まずローカルのオフライン辞書を確認
+        // 1. ローカルオフライン辞書で完全一致検索
         if (offlineDict[kanji]) {
             fillForm(offlineDict[kanji].reading, offlineDict[kanji].meaning, offlineDict[kanji].example);
             loader.style.display = 'none';
-            showToast(`「${kanji}」の情報を自動取得しました！`);
+            showToast(`「${kanji}」情報を自動取得したで！`);
             return;
         }
 
         try {
-            // 2. Wikipedia API を呼び出してデータを検索
+            // 2. Wikipedia 日本語APIの簡易利用
             const wikiUrl = `https://ja.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(kanji)}`;
             const wikiRes = await fetch(wikiUrl);
             
@@ -864,61 +902,54 @@
                 const extract = wikiData.extract || "";
 
                 if (extract) {
-                    // カッコからひらがなを抽出
                     const readingMatch = extract.match(/(?:（|\()([ぁ-んァ-ヶー]+)(?:）|\))/);
                     let reading = readingMatch ? readingMatch[1] : '';
 
-                    // 意味を取得して、3つ以上の箇条書き意味を自動で作り出す
                     let meaningRaw = extract;
                     const definitionMatch = extract.match(/(?:とは、|は、|とは)(.+)/);
                     if (definitionMatch) {
                         meaningRaw = definitionMatch[1];
                     }
                     
-                    // 文を「。」で分割して意味候補を作る
                     const sentences = meaningRaw.split('。').filter(s => s.trim().length > 0);
                     let meaningStr = "";
                     
                     if (sentences.length >= 3) {
                         meaningStr = `① ${sentences[0]}。\n② ${sentences[1]}。\n③ ${sentences[2]}。`;
                     } else if (sentences.length === 2) {
-                        meaningStr = `① ${sentences[0]}。\n② ${sentences[1]}。\n③ 「${kanji}」に関する詳細な文脈。`;
+                        meaningStr = `① ${sentences[0]}。\n② ${sentences[1]}。\n③ 「${kanji}」の使われ方や会話表現。`;
                     } else {
-                        meaningStr = `① ${sentences[0]}。\n② 辞書的解釈の一般例。\n③ 日常生活やビジネスで使用されるケース。`;
+                        meaningStr = `① ${sentences[0]}。\n② 辞書検索に基づく主なニュアンス。\n③ 日常生活やニュースで活用される用例。`;
                     }
 
-                    // 読みがなければJisho APIで補正
                     if (!reading) {
-                        const backup = await fetchReadingFromJisho(kanji);
-                        if (backup) reading = backup;
+                        const jishoReading = await fetchReadingFromJisho(kanji);
+                        if (jishoReading) reading = jishoReading;
                     }
 
-                    fillForm(reading, meaningStr, `「${kanji}」を用いた実践的な文章例をここに書きます。`);
+                    fillForm(reading, meaningStr, `「${kanji}」を使ったより自然な表現をここに記述します。`);
                     loader.style.display = 'none';
-                    showToast(`「${kanji}」の情報を自動取得しました！`);
+                    showToast(`「${kanji}」の情報をWikipediaから自動取得！`);
                     return;
                 }
             }
 
-            // 3. Jisho API でバックアップ
+            // 3. Jisho APIの呼び出し（最終バックアップ）
             const jishoBackup = await fetchFromJishoAll(kanji);
             if (jishoBackup) {
-                fillForm(jishoBackup.reading, jishoBackup.meaning, `「${kanji}」を活用した文章。`);
-                showToast(`「${kanji}」の情報を取得しました！`);
+                fillForm(jishoBackup.reading, jishoBackup.meaning, `「${kanji}」に関する情報。`);
+                showToast(`「${kanji}」の情報を取得したで！`);
             } else {
-                // 自動取得失敗時は優しくユーザーに教える
-                showToast("自動取得に失敗しました。手動で入力してください。");
+                showToast("見つからへんかった。手動で読みと意味を打ち込んでな！");
             }
 
         } catch (error) {
-            console.error("APIの取得失敗:", error);
-            showToast("通信エラーが発生しました。");
+            console.error("API Error: ", error);
         } finally {
             loader.style.display = 'none';
         }
     }
 
-    // Jisho APIの読み取得
     async function fetchReadingFromJisho(word) {
         try {
             const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://jisho.org/api/v1/search/words?keyword=' + word)}`);
@@ -927,13 +958,10 @@
             if (jishoData && jishoData.data && jishoData.data.length > 0) {
                 return jishoData.data[0].japanese[0].reading || '';
             }
-        } catch (e) {
-            console.error(e);
-        }
+        } catch (e) { console.error(e); }
         return '';
     }
 
-    // Jisho APIでの包括的な定義構築（英語定義を日本語にするなど）
     async function fetchFromJishoAll(word) {
         try {
             const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://jisho.org/api/v1/search/words?keyword=' + word)}`);
@@ -944,35 +972,28 @@
                 const reading = entry.japanese[0].reading || '';
                 const senses = entry.senses.slice(0, 3);
                 
-                // 3つの意味を組み立てる
                 let meaningText = "";
                 senses.forEach((sense, index) => {
-                    meaningText += `① (${sense.parts_of_speech.join(', ')}) ${sense.english_definitions.join(', ')}\n`;
+                    meaningText += `${String.fromCharCode(9312 + index)} (${sense.parts_of_speech.join(', ')}) ${sense.english_definitions.join(', ')}\n`;
                 });
                 
-                // もし3つない場合はダミー説明を追加
                 if (senses.length < 3) {
-                    meaningText += `② 辞書検索による候補データ。\n③ 詳しい用法をウェブで調べる。`;
+                    meaningText += `② ウェブ検索に基づく定義情報を記載。\n③ 主なビジネスシーンなどで使う表現。`;
                 }
 
                 return { reading, meaning: meaningText };
             }
-        } catch (e) {
-            console.error(e);
-        }
+        } catch (e) { console.error(e); }
         return null;
     }
 
-    // フォームに値を自動でセットする
     function fillForm(reading, meaning, example) {
         document.getElementById('form-reading').value = reading || '';
         document.getElementById('form-meaning').value = meaning || '';
         document.getElementById('form-example').value = example || '';
     }
 
-    /* -------------------------------------------
-       漢字メモの登録とリスト表示（アコーディオン）
-    -------------------------------------------- */
+    // メモ登録
     function addKanji(e) {
         e.preventDefault();
         const newKanji = {
@@ -987,12 +1008,15 @@
         kanjiData.push(newKanji);
         saveToStorage();
         document.getElementById('kanji-form').reset();
+        
+        // 登録後に登録フォームをパッと閉じる（快適さ向上）
+        toggleRegisterForm();
         renderList();
         
-        showToast(`「${newKanji.kanji}」をメモしたで！`);
+        showToast(`「${newKanji.kanji}」を登録したで！`);
     }
 
-    // 箇条書きの意味を綺麗に出力するフォーマッタ
+    // 意味の複数箇条書き表示フォーマット
     function formatMeaning(meaningText) {
         if (!meaningText) return '';
         const lines = meaningText.split('\n');
@@ -1006,17 +1030,16 @@
         return html;
     }
 
-    // リストの描画
+    // 一覧の再描写
     function renderList() {
         const listContainer = document.getElementById('kanji-list');
         listContainer.innerHTML = '';
 
         if (kanjiData.length === 0) {
-            listContainer.innerHTML = '<p style="text-align:center; color:var(--text-sub); padding:30px;">登録された漢字はありません。上のフォームから登録してみてな！</p>';
+            listContainer.innerHTML = '<p style="text-align:center; color:var(--text-sub); padding:30px;">登録した漢字はありません。<br>「新しい漢字を登録する」をタップしてな！</p>';
             return;
         }
 
-        // 最新が上に来るように逆順
         [...kanjiData].reverse().forEach(item => {
             const itemElement = document.createElement('div');
             itemElement.className = 'kanji-list-item';
@@ -1038,7 +1061,7 @@
                             <div class="value" style="font-weight: 700; color: #d35400;">${item.reading}</div>
                         </div>
                         <div class="detail-group">
-                            <div class="label"><i class="fa-solid fa-book"></i> 意味（3つの要約）</div>
+                            <div class="label"><i class="fa-solid fa-book"></i> 意味</div>
                             <div class="value">${formatMeaning(item.meaning)}</div>
                         </div>
                         <div class="detail-group">
@@ -1047,7 +1070,7 @@
                         </div>
                         <div class="kanji-body-footer">
                             <button class="btn-status" onclick="toggleStatus(${item.id})">
-                                ${item.isMastered ? '<i class="fa-solid fa-xmark"></i> 未習得に戻す' : '<i class="fa-solid fa-check"></i> 覚えた！にする'}
+                                ${item.isMastered ? '<i class="fa-solid fa-xmark"></i> 未習得に戻す' : '<i class="fa-solid fa-check"></i> 覚えたにする'}
                             </button>
                             <button class="btn-outline-danger" onclick="confirmDelete(${item.id}, '${item.kanji}')">
                                 <i class="fa-solid fa-trash-can"></i> 削除
@@ -1060,7 +1083,6 @@
         });
     }
 
-    // アコーディオンの開閉
     function toggleAccordion(headerElement) {
         const itemElement = headerElement.parentElement;
         const isOpen = itemElement.classList.contains('open');
@@ -1074,19 +1096,17 @@
         }
     }
 
-    // 覚えた・未習得ステータスの切り替え
     function toggleStatus(id) {
         kanjiData = kanjiData.map(item => item.id === id ? {...item, isMastered: !item.isMastered} : item);
         saveToStorage();
         renderList();
-        showToast("習得ステータスを更新しました！");
+        showToast("習得ステータスを切り替えたよ！");
     }
 
-    // 全ての漢字を未習得に戻す
     function showResetConfirmation() {
         showConfirmModal(
             "ステータスのリセット",
-            "登録されているすべての漢字を「未習得」の状態に戻しますか？（最初からテストをやり直せます）",
+            "すべてを「未習得」に戻して、一から漢字テストをやり直しますか？",
             (confirmed) => {
                 if (confirmed) {
                     kanjiData = kanjiData.map(item => ({...item, isMastered: false}));
@@ -1098,44 +1118,37 @@
         );
     }
 
-    // 削除確認
     function confirmDelete(id, kanjiName) {
         showConfirmModal(
             "漢字の削除",
-            `「${kanjiName}」をメモから完全に削除してもいいですか？`,
+            `「${kanjiName}」を完全にリストから削除しますか？`,
             (confirmed) => {
                 if (confirmed) {
                     kanjiData = kanjiData.filter(item => item.id !== id);
                     saveToStorage();
                     renderList();
-                    showToast(`「${kanjiName}」を削除しました。`);
+                    showToast(`「${kanjiName}」を削除したで。`);
                 }
             }
         );
     }
 
-    /* -------------------------------------------
-       漢字テストのロジック（リファイン版）
-    -------------------------------------------- */
     function initQuiz() {
-        // 未習得の漢字を抽出
         activeQuizCards = kanjiData.filter(item => !item.isMastered);
         renderQuiz();
     }
 
-    // 漢字テスト全体のレンダリング
     function renderQuiz() {
         const container = document.getElementById('quiz-container');
 
         if (quizState === 'start') {
-            // 1. テスト開始前のデザイン（「開始」ボタンUI）
             if (activeQuizCards.length === 0) {
                 container.innerHTML = `
                     <div class="quiz-start-screen">
                         <i class="fa-solid fa-face-laugh-beam" style="color: var(--success-color);"></i>
                         <h2>すべて完璧や！ 🎉</h2>
-                        <p>現在、未習得の漢字はありません。全部マスターしたよ！</p>
-                        <button class="btn btn-primary" onclick="switchTab('memo')" style="width:auto; padding: 14px 28px;">新しい漢字をメモする</button>
+                        <p>現在、未習得の漢字はありません。<br>本をいっぱい読んでさらに追加してみてな！</p>
+                        <button class="btn btn-primary" onclick="switchTab('memo')" style="width:auto; padding: 12px 24px;">新しい漢字を追加する</button>
                     </div>
                 `;
             } else {
@@ -1144,13 +1157,12 @@
                         <i class="fa-solid fa-graduation-cap"></i>
                         <h2>漢字テストに挑戦</h2>
                         <p>覚えていない漢字が <strong>${activeQuizCards.length} 語</strong> あるよ！</p>
-                        <button class="btn btn-primary" onclick="startQuizNow()" style="width:auto; padding: 16px 36px;"><i class="fa-solid fa-play"></i> テストを始める</button>
+                        <button class="btn btn-primary" onclick="startQuizNow()" style="width:auto; padding: 14px 30px;"><i class="fa-solid fa-play"></i> テストを始める</button>
                     </div>
                 `;
             }
         } else if (quizState === 'active') {
-            // 2. クイズ進行中
-            renderActiveCard();
+            renderActiveQuizCard();
         }
     }
 
@@ -1160,19 +1172,18 @@
         renderQuiz();
     }
 
-    // アクティブな問題カードを描画
-    function renderActiveCard() {
+    // 漢字のすぐ下にすべてを集約したスクロール不要なカード描画
+    function renderActiveQuizCard() {
         const container = document.getElementById('quiz-container');
         const currentCard = activeQuizCards[currentQuizIndex];
         
-        // 進捗度計算
         const total = activeQuizCards.length;
         const progressPercentage = ((currentQuizIndex) / total) * 100;
 
         container.innerHTML = `
-            <div style="display:flex; justify-content:space-between; color:var(--text-sub); font-size:0.9rem; margin-bottom:15px; font-weight:bold;">
+            <div style="display:flex; justify-content:space-between; color:var(--text-sub); font-size:0.8rem; margin-bottom:8px; font-weight:bold;">
                 <span>問題: ${currentQuizIndex + 1} / ${total} 語目</span>
-                <span style="color:#d35400;"><i class="fa-solid fa-hourglass-half"></i> 未クリア: ${total} 語</span>
+                <span style="color:#d35400;"><i class="fa-solid fa-hourglass-half"></i> 未マスター: ${total} 語</span>
             </div>
 
             <!-- 進捗ゲージ -->
@@ -1180,30 +1191,34 @@
                 <div class="progress-bar" style="width: ${progressPercentage}%"></div>
             </div>
             
+            <!-- 漢字表示 -->
             <div class="quiz-kanji-container">
                 <div class="quiz-kanji">${currentCard.kanji}</div>
             </div>
             
+            <!-- 答えを見るボタン（回答時は非表示、親指位置） -->
             <button id="show-answer-btn" class="btn btn-primary" onclick="showQuizAnswer()"><i class="fa-solid fa-eye"></i> 答えを見る</button>
             
+            <!-- 答え表示（漢字の真下） -->
             <div id="quiz-details" class="quiz-details">
                 <div class="detail-group">
                     <div class="label"><i class="fa-solid fa-microphone"></i> 読み</div>
                     <div class="value reading-highlight">${currentCard.reading}</div>
                 </div>
-                <div class="detail-group">
-                    <div class="label"><i class="fa-solid fa-book"></i> 意味（3つの説明）</div>
+                <div class="detail-group" style="margin-bottom: 8px;">
+                    <div class="label"><i class="fa-solid fa-book"></i> 意味</div>
                     <div class="value">${formatMeaning(currentCard.meaning)}</div>
                 </div>
-                <div class="detail-group">
+                <div class="detail-group" style="margin-bottom: 5px;">
                     <div class="label"><i class="fa-solid fa-pen-nib"></i> 例文</div>
-                    <div class="value" style="font-style: italic; color:#555;">${currentCard.example}</div>
+                    <div class="value" style="font-style: italic; color:#555; font-size:0.85rem;">${currentCard.example}</div>
                 </div>
             </div>
 
+            <!-- 覚えた・覚えてないアクションボタン（完全に同じ目線に出現） -->
             <div id="quiz-actions" class="quiz-actions">
                 <button class="btn btn-success" onclick="submitQuizResult(true)"><i class="fa-solid fa-check"></i> 覚えた！</button>
-                <button class="btn btn-secondary" onclick="submitQuizResult(false)"><i class="fa-solid fa-rotate-right"></i> まだ覚えてない</button>
+                <button class="btn btn-secondary" onclick="submitQuizResult(false)"><i class="fa-solid fa-rotate-right"></i> まだ…</button>
             </div>
         `;
     }
@@ -1218,23 +1233,18 @@
         const currentCard = activeQuizCards[currentQuizIndex];
 
         if (isMastered) {
-            // メインデータを「覚えた（isMastered: true）」に更新
             kanjiData = kanjiData.map(item => item.id === currentCard.id ? {...item, isMastered: true} : item);
             saveToStorage();
-            // テスト配列から削除
             activeQuizCards.splice(currentQuizIndex, 1);
-            showToast(`「${currentCard.kanji}」を覚えたリストに登録したで！`);
+            showToast(`「${currentCard.kanji}」を覚えたよ！`);
         } else {
-            // 次のカードへ進む
             currentQuizIndex++;
         }
 
-        // 最後の問題を超えたら最初に戻る
         if (currentQuizIndex >= activeQuizCards.length) {
             currentQuizIndex = 0;
         }
 
-        // 残り問題が0になったらクリア
         if (activeQuizCards.length === 0) {
             quizState = 'start';
         }
@@ -1242,7 +1252,7 @@
         renderQuiz();
     }
 
-    // 初回ロード時
+    // 初回起動
     initQuiz();
 </script>
 
